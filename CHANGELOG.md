@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning][semver].
 
 ## [unreleased]
 
+## [0.3.0] :: 2020-06-09
+
 ### added
 
 - configure the project definition for distributed tracing
@@ -46,6 +48,7 @@ and this project adheres to [Semantic Versioning][semver].
 - design and launch the database context
 - design and launch the restful service
 
+[0.3.0]: https://github.com/rvtr/rvtr-api-lodging/tree/0.3.0 '0.3.0'
 [0.2.2]: https://github.com/rvtr/rvtr-api-lodging/tree/0.2.2 '0.2.2'
 [0.2.1]: https://github.com/rvtr/rvtr-api-lodging/tree/0.2.1 '0.2.1'
 [0.2.0]: https://github.com/rvtr/rvtr-api-lodging/tree/0.2.0 '0.2.0'
