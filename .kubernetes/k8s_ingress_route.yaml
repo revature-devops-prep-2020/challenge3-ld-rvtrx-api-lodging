@@ -5,10 +5,10 @@ metadata:
   name: lodging
 spec:
   entryPoints:
-    - web
+    - http
   routes:
     - kind: Rule
-      match: PathPrefix(`/`) || PathPrefix(`/lodging`)
+      match: PathPrefix(`/lodging`)
       middlewares:
         - name: lodging-stripprefix
       priority: 10
