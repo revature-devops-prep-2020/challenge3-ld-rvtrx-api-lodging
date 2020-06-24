@@ -8,7 +8,9 @@ spec:
     - web
   routes:
     - kind: Rule
-      match: PathPrefix(`/`)
+      match: PathPrefix(`/`) || PathPrefix(`/lodging`)
+      middlewares:
+        - name: lodging-stripprefix
       priority: 10
       services:
         - kind: Service
