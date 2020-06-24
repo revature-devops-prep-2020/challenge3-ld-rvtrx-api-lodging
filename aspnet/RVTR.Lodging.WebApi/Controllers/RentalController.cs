@@ -13,7 +13,7 @@ namespace RVTR.Lodging.WebApi.Controllers
   [ApiController]
   [ApiVersion("0.0")]
   [EnableCors("public")]
-  [Route("api/v{version:apiVersion}/[controller]")]
+  [Route("{version:apiVersion}/[controller]")]
   public class RentalController : ControllerBase
   {
     private readonly ILogger<RentalController> _logger;
