@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning][semver].
 
 ## [0.4.0] :: 2020-06-24
 
+- configure the project swagger endpoint definition
+
 ### added
 
 - add the project deploy job on release workflow
