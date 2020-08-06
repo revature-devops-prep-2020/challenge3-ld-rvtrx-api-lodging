@@ -88,12 +88,17 @@ namespace RVTR.Lodging.WebApi
       applicationBuilder.UseTracing("lodgingapi.rest");
       applicationBuilder.UseHttpsRedirection();
       applicationBuilder.UseRouting();
-      applicationBuilder.UseSwagger();
+      applicationBuilder.UseSwagger(options =>
+      {
+        options.RouteTemplate = "lodgingapi/{documentName}/swagger.json";
+      });
       applicationBuilder.UseSwaggerUI(options =>
       {
+        options.RoutePrefix = "rest/lodgingapi";
+
         foreach (var description in descriptionProvider.ApiVersionDescriptions)
         {
-          options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName);
+          options.SwaggerEndpoint($"/lodgingapi/{description.GroupName}/swagger.json", description.GroupName);
         }
       });
 
