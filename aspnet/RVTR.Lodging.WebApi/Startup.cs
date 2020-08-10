@@ -90,15 +90,15 @@ namespace RVTR.Lodging.WebApi
       applicationBuilder.UseRouting();
       applicationBuilder.UseSwagger(options =>
       {
-        options.RouteTemplate = "lodgingapi/{documentName}/swagger.json";
+        options.RouteTemplate = "rest/lodging/{documentName}/swagger.json";
       });
       applicationBuilder.UseSwaggerUI(options =>
       {
-        options.RoutePrefix = "rest/lodgingapi";
+        options.RoutePrefix = "rest/lodging";
 
         foreach (var description in descriptionProvider.ApiVersionDescriptions)
         {
-          options.SwaggerEndpoint($"/lodgingapi/{description.GroupName}/swagger.json", description.GroupName);
+          options.SwaggerEndpoint($"/rest/lodging/{description.GroupName}/swagger.json", description.GroupName);
         }
       });
 
