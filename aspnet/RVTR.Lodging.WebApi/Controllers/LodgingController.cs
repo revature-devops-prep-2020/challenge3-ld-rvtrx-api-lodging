@@ -69,6 +69,11 @@ namespace RVTR.Lodging.WebApi.Controllers
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)
     {
+      if(id <= 0)
+      {
+        
+      }
+
       try
       {
         return Ok(await _unitOfWork.Lodging.SelectAsync(id));
