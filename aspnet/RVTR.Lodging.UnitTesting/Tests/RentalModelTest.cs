@@ -16,7 +16,9 @@ namespace RVTR.Lodging.UnitTesting.Tests
         {
           Id = 0,
           Name = "name",
-          RentalUnit = new RentalUnitModel(),
+          Type = "type",
+          Status = "status",
+          Price = 0.0,
           LodgingId = 0,
           Lodging = null
         }
