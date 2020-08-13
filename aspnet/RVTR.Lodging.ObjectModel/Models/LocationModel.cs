@@ -14,8 +14,6 @@ namespace RVTR.Lodging.ObjectModel.Models
 
     public string Latitude { get; set; }
 
-    public string Locale { get; set; }
-
     public string Longitude { get; set; }
 
     /// <summary>

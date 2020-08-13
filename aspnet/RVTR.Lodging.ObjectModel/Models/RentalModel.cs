@@ -12,11 +12,19 @@ namespace RVTR.Lodging.ObjectModel.Models
 
     public string Name { get; set; }
 
-    public RentalUnitModel RentalUnit { get; set; }
-
     public int? LodgingId { get; set; }
 
     public LodgingModel Lodging { get; set; }
+
+    public int Occupancy { get; set; }
+
+    public string Type { get; set; }
+
+    public string Status { get; set; }
+
+    public double Price { get; set; }
+
+    public double? DiscountedPrice { get; set; }
 
     /// <summary>
     /// Represents the _Rental_ `Validate` method
