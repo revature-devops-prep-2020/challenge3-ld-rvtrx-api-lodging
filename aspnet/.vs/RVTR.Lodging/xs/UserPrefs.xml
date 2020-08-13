@@ -1,12 +1,15 @@
 ﻿<Properties StartupConfiguration="{A0CF8191-7FC0-4CE6-BEA6-F7FA9C68E529}|Default">
   <MonoDevelop.Ide.ItemProperties.RVTR.Lodging.UnitTesting PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="RVTR.Lodging.UnitTesting/Tests/LocationModelTest.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="RVTR.Lodging.UnitTesting/Tests/RentalModelTest.cs">
     <Files>
-      <File FileName="RVTR.Lodging.ObjectModel/Models/LodgingModel.cs" Line="36" Column="66" />
-      <File FileName="RVTR.Lodging.UnitTesting/Tests/LocationModelTest.cs" Line="46" Column="1" />
-      <File FileName="RVTR.Lodging.ObjectModel/Models/RentalModel.cs" Line="27" Column="49" />
-      <File FileName="RVTR.Lodging.ObjectModel/Models/ReviewModel.cs" Line="24" Column="46" />
-      <File FileName="RVTR.Lodging.ObjectModel/Models/LocationModel.cs" Line="11" Column="32" />
+      <File FileName="RVTR.Lodging.ObjectModel/Models/LodgingModel.cs" Line="21" Column="27" />
+      <File FileName="RVTR.Lodging.WebApi/Controllers/LodgingController.cs" Line="111" Column="1" />
+      <File FileName="RVTR.Lodging.DataContext/Repositories/Repository.cs" Line="29" Column="68" />
+      <File FileName="RVTR.Lodging.DataContext/Repositories/LodgingRepo.cs" Line="34" Column="1" />
+      <File FileName="RVTR.Lodging.ObjectModel/Interfaces/IRepository.cs" Line="19" Column="2" />
+      <File FileName="RVTR.Lodging.ObjectModel/Interfaces/ILodgingRepo.cs" Line="13" Column="1" />
+      <File FileName="RVTR.Lodging.DataContext/LodgingContext.cs" Line="16" Column="1" />
+      <File FileName="RVTR.Lodging.UnitTesting/Tests/RentalModelTest.cs" Line="19" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -16,15 +19,23 @@
               <Node name="Repositories" expanded="True" />
             </Node>
             <Node name="RVTR.Lodging.ObjectModel" expanded="True">
+              <Node name="Interfaces" expanded="True" />
               <Node name="Models" expanded="True" />
             </Node>
             <Node name="RVTR.Lodging.UnitTesting" expanded="True">
               <Node name="Tests" expanded="True">
-                <Node name="LocationModelTest.cs" selected="True" />
+                <Node name="RentalModelTest.cs" selected="True" />
               </Node>
             </Node>
-            <Node name="RVTR.Lodging.WebApi" expanded="True" />
+            <Node name="RVTR.Lodging.WebApi" expanded="True">
+              <Node name="Controllers" expanded="True" />
+            </Node>
           </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.UnitTesting.TestPad">
+        <State name="__root__">
+          <Node name="RVTR.Lodging" expanded="True" selected="True" />
         </State>
       </Pad>
     </Pads>
