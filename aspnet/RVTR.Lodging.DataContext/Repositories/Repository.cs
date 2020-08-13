@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using RVTR.Lodging.ObjectModel.Interfaces;
 
 namespace RVTR.Lodging.DataContext.Repositories
 {
@@ -8,7 +9,7 @@ namespace RVTR.Lodging.DataContext.Repositories
   /// Represents the _Repository_ generic
   /// </summary>
   /// <typeparam name="TEntity"></typeparam>
-  public class Repository<TEntity> where TEntity : class
+  public class Repository<TEntity>: IRepository<TEntity> where TEntity : class
   {
     public readonly DbSet<TEntity> _db;
 

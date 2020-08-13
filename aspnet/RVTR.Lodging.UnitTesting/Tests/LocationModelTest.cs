@@ -17,7 +17,6 @@ namespace RVTR.Lodging.UnitTesting.Tests
           Id = 0,
           Address = new AddressModel(),
           Latitude = "00",
-          Locale = "locale",
           Longitude = "00"
         }
       }
@@ -41,5 +40,6 @@ namespace RVTR.Lodging.UnitTesting.Tests
 
       Assert.Empty(location.Validate(validationContext));
     }
+
   }
 }
