@@ -1,5 +1,10 @@
 ﻿<Properties StartupConfiguration="{A0CF8191-7FC0-4CE6-BEA6-F7FA9C68E529}|Default">
   <MonoDevelop.Ide.ItemProperties.RVTR.Lodging.UnitTesting PreferredExecutionTarget="MonoDevelop.Default" />
+<<<<<<< HEAD
+  <MonoDevelop.Ide.Workbench ActiveDocument="RVTR.Lodging.WebApi/Controllers/LodgingController.cs">
+    <Files>
+      <File FileName="RVTR.Lodging.WebApi/Controllers/LodgingController.cs" Line="65" Column="31" />
+=======
   <MonoDevelop.Ide.Workbench ActiveDocument="RVTR.Lodging.UnitTesting/Tests/RentalModelTest.cs">
     <Files>
       <File FileName="RVTR.Lodging.ObjectModel/Models/LodgingModel.cs" Line="21" Column="27" />
@@ -10,11 +15,22 @@
       <File FileName="RVTR.Lodging.ObjectModel/Interfaces/ILodgingRepo.cs" Line="13" Column="1" />
       <File FileName="RVTR.Lodging.DataContext/LodgingContext.cs" Line="16" Column="1" />
       <File FileName="RVTR.Lodging.UnitTesting/Tests/RentalModelTest.cs" Line="19" Column="1" />
+>>>>>>> e01222522fc984c2c92c5bbbe4bcb2894bac2e78
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="RVTR.Lodging" expanded="True">
+<<<<<<< HEAD
+            <Node name="RVTR.Lodging.WebApi" expanded="True">
+              <Node name="Controllers" expanded="True">
+                <Node name="LodgingController.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+=======
             <Node name="RVTR.Lodging.DataContext" expanded="True">
               <Node name="Repositories" expanded="True" />
             </Node>
@@ -38,6 +54,7 @@
           <Node name="RVTR.Lodging" expanded="True" selected="True" />
         </State>
       </Pad>
+>>>>>>> e01222522fc984c2c92c5bbbe4bcb2894bac2e78
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

@@ -47,8 +47,9 @@ namespace RVTR.Lodging.UnitTesting.Tests
 
           var actual = await lodgings.AvailableLodgings();
 
-          Assert.Empty(actual);
+          //Assert.Empty(actual);
           //Assert.Single(actual.ToList());
+          Assert.Null(actual);
         }
       }
       finally
