@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RVTR.Lodging.DataContext.Repositories;
@@ -56,9 +57,15 @@ namespace RVTR.Lodging.WebApi.Controllers
     /// </summary>
     /// <returns></returns>
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Get()
     {
-      return Ok(await _unitOfWork.Lodging.SelectAsync());
+      var lodgings = await _unitOfWork.Lodging.SelectAsync();
+      if (lodgings == null)
+        return NotFound();
+      else
+        return Ok(lodgings);  
     }
 
     /// <summary>
@@ -67,6 +74,8 @@ namespace RVTR.Lodging.WebApi.Controllers
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpGet("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Get(int id)
     {
       try
