@@ -62,6 +62,7 @@ namespace RVTR.Lodging.WebApi
 
       services.AddScoped<ClientZipkinMiddleware>();
       services.AddScoped<UnitOfWork>();
+      services.AddScoped<LodgingRepo>();
       services.AddSwaggerGen();
       services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ClientSwaggerOptions>();
       services.AddVersionedApiExplorer(options =>

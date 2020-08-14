@@ -18,16 +18,19 @@ namespace RVTR.Lodging.WebApi.Controllers
   {
     private readonly ILogger<LodgingController> _logger;
     private readonly UnitOfWork _unitOfWork;
+    private readonly LodgingRepo _lodgingRepo;
 
     /// <summary>
     ///
     /// </summary>
     /// <param name="logger"></param>
     /// <param name="unitOfWork"></param>
-    public LodgingController(ILogger<LodgingController> logger, UnitOfWork unitOfWork)
+    /// <param name="lodgingRepo"></param>
+    public LodgingController(ILogger<LodgingController> logger, UnitOfWork unitOfWork, LodgingRepo lodgingRepo)
     {
       _logger = logger;
       _unitOfWork = unitOfWork;
+      _lodgingRepo = lodgingRepo;
     }
 
     /// <summary>
@@ -105,6 +108,16 @@ namespace RVTR.Lodging.WebApi.Controllers
       await _unitOfWork.CommitAsync();
 
       return Accepted(lodging);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet]
+    public async Task<IActionResult> GetAvailableLodgings()
+    {
+      return Ok(await _lodgingRepo.AvailableLodgings());
     }
   }
 }
