@@ -27,8 +27,8 @@ namespace RVTR.Lodging.WebApi.Controllers
     /// <param name="unitOfWork"></param>
     public LodgingController(ILogger<LodgingController> logger, UnitOfWork unitOfWork)
     {
-      _logger = logger;
-      _unitOfWork = unitOfWork;
+        _logger = logger;
+        _unitOfWork = unitOfWork;
     }
 
     /// <summary>
@@ -78,13 +78,20 @@ namespace RVTR.Lodging.WebApi.Controllers
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Get(int id)
     {
-      try
+      if (id <= 0)
       {
-        return Ok(await _unitOfWork.Lodging.SelectAsync(id));
+          return NotFound(id);
       }
-      catch
+      else
       {
-        return NotFound(id);
+          try
+          {
+              return Ok(await _unitOfWork.Lodging.SelectAsync(id));
+          }
+          catch
+          {
+              return NotFound(id);
+          }
       }
     }
 
@@ -96,10 +103,10 @@ namespace RVTR.Lodging.WebApi.Controllers
     [HttpPost]
     public async Task<IActionResult> Post(LodgingModel lodging)
     {
-      await _unitOfWork.Lodging.InsertAsync(lodging);
-      await _unitOfWork.CommitAsync();
+        await _unitOfWork.Lodging.InsertAsync(lodging);
+        await _unitOfWork.CommitAsync();
 
-      return Accepted(lodging);
+        return Accepted(lodging);
     }
 
     /// <summary>
@@ -110,10 +117,10 @@ namespace RVTR.Lodging.WebApi.Controllers
     [HttpPut]
     public async Task<IActionResult> Put(LodgingModel lodging)
     {
-      _unitOfWork.Lodging.Update(lodging);
-      await _unitOfWork.CommitAsync();
+        _unitOfWork.Lodging.Update(lodging);
+        await _unitOfWork.CommitAsync();
 
-      return Accepted(lodging);
+        return Accepted(lodging);
     }
   }
 }
