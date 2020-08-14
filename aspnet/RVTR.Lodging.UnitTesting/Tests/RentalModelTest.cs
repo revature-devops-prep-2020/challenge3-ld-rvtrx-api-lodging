@@ -6,9 +6,9 @@ using Xunit;
 
 namespace RVTR.Lodging.UnitTesting.Tests
 {
-  public class RentalModelTest
-  {
-    public static readonly IEnumerable<Object[]> _rentals = new List<Object[]>
+    public class RentalModelTest
+    {
+        public static readonly IEnumerable<Object[]> _rentals = new List<Object[]>
     {
       new object[]
       {
@@ -16,29 +16,29 @@ namespace RVTR.Lodging.UnitTesting.Tests
         {
           Id = 0,
           Name = "name",
-          LodgingId = 0,
-          Lodging = null
+          //LodgingId = 0,
+          //Lodging = null
         }
       }
     };
 
-    [Theory]
-    [MemberData(nameof(_rentals))]
-    public void Test_Create_RentalModel(RentalModel rental)
-    {
-      var validationContext = new ValidationContext(rental);
-      var actual = Validator.TryValidateObject(rental, validationContext, null, true);
+        [Theory]
+        [MemberData(nameof(_rentals))]
+        public void Test_Create_RentalModel(RentalModel rental)
+        {
+            var validationContext = new ValidationContext(rental);
+            var actual = Validator.TryValidateObject(rental, validationContext, null, true);
 
-      Assert.True(actual);
+            Assert.True(actual);
+        }
+
+        [Theory]
+        [MemberData(nameof(_rentals))]
+        public void Test_Validate_RentalModel(RentalModel rental)
+        {
+            var validationContext = new ValidationContext(rental);
+
+            Assert.Empty(rental.Validate(validationContext));
+        }
     }
-
-    [Theory]
-    [MemberData(nameof(_rentals))]
-    public void Test_Validate_RentalModel(RentalModel rental)
-    {
-      var validationContext = new ValidationContext(rental);
-
-      Assert.Empty(rental.Validate(validationContext));
-    }
-  }
 }
