@@ -25,7 +25,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
         {
             var contextMock = new Mock<LodgingContext>(_options);
             var loggerMock = new Mock<ILogger<LodgingController>>();
-            var repositoryMock = new Mock<Repository<LodgingModel>>(new LodgingContext(_options));
+            var repositoryMock = new Mock<LodgingRepo>(new LodgingContext(_options));
             var unitOfWorkMock = new Mock<UnitOfWork>(contextMock.Object);
 
             repositoryMock.Setup(m => m.DeleteAsync(0)).Throws(new Exception());
