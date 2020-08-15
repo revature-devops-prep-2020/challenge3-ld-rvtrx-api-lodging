@@ -16,9 +16,11 @@ namespace RVTR.Lodging.UnitTesting.Tests
         {
           Id = 0,
           Name = "name",
+          Occupancy = 0,
           Type = "type",
           Status = "status",
           Price = 0.0,
+          DiscountedPrice = 0.0,
           LodgingId = 0,
           Lodging = null
         }
