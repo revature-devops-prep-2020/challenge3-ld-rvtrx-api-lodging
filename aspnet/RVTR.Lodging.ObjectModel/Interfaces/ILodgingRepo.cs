@@ -8,5 +8,6 @@ namespace RVTR.Lodging.ObjectModel.Interfaces
   public interface ILodgingRepo
   {
     Task<IEnumerable<LodgingModel>> AvailableLodgings();
-  }
+        Task DeleteAsync(int id);
+    }
 }

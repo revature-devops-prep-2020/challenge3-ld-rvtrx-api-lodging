@@ -11,7 +11,7 @@ namespace RVTR.Lodging.DataContext.Repositories
   {
     private readonly LodgingContext _context;
 
-    public virtual ILodgingRepo Lodging { get; }
+    public virtual LodgingRepo Lodging { get; }
     public virtual IRepository<RentalModel> Rental { get; set; }
     public virtual IRepository<ReviewModel> Review { get; set; }
 
