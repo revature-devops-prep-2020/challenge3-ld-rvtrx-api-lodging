@@ -65,9 +65,12 @@ namespace RVTR.Lodging.WebApi.Controllers
         {
             var lodgings = await _unitOfWork.Lodging.SelectAsync();
             if (lodgings == null)
+            {
                 return NotFound();
-            else
+            }else
+            {
                 return Ok(lodgings);
+            }
         }
 
         /// <summary>
@@ -86,14 +89,8 @@ namespace RVTR.Lodging.WebApi.Controllers
             }
             else
             {
-                try
-                {
-                    return Ok(await _unitOfWork.Lodging.SelectAsync(id));
-                }
-                catch
-                {
-                    return NotFound(id);
-                }
+                return Ok(await _unitOfWork.Lodging.SelectAsync(id));
+                
             }
         }
 
