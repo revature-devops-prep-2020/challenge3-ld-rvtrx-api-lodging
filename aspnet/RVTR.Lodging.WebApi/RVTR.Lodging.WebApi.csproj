@@ -4,13 +4,14 @@
     <DebugType>Full</DebugType>
     <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <RestoreLockedMode>true</RestoreLockedMode>
+    <RestoreLockedMode>false</RestoreLockedMode>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <Version>0.5.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.7" />
     <PackageReference Include="microsoft.aspnetcore.mvc.versioning" Version="4.1.1" />
     <PackageReference Include="microsoft.aspnetcore.mvc.versioning.apiexplorer" Version="4.1.1" />
     <PackageReference Include="npgsql.entityframeworkcore.postgresql" Version="3.1.3" />

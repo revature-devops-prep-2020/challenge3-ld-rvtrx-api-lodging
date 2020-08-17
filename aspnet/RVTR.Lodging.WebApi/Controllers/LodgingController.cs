@@ -80,20 +80,13 @@ namespace RVTR.Lodging.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get(int id)
         {
-            if (id <= 0)
+            try
+            {
+                return Ok(await _unitOfWork.Lodging.SelectAsync(id));
+            }
+            catch
             {
                 return NotFound(id);
-            }
-            else
-            {
-                try
-                {
-                    return Ok(await _unitOfWork.Lodging.SelectAsync(id));
-                }
-                catch
-                {
-                    return NotFound(id);
-                }
             }
         }
 
@@ -125,15 +118,6 @@ namespace RVTR.Lodging.WebApi.Controllers
             return Accepted(lodging);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("getAvailableLodgings")]
-        public async Task<IActionResult> GetAvailableLodgings()
-        {
-            return Ok(await _unitOfWork.Lodging.AvailableLodgings());
-        }
+
     }
 }

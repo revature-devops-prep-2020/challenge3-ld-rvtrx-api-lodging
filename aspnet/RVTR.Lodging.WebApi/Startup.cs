@@ -13,102 +13,105 @@ using zipkin4net.Middleware;
 
 namespace RVTR.Lodging.WebApi
 {
-  /// <summary>
-  ///
-  /// </summary>
-  public class Startup
-  {
     /// <summary>
     ///
     /// </summary>
-    private readonly IConfiguration _configuration;
-
-    /// <summary>
-    ///
-    /// </summary>
-    /// <param name="configuration"></param>
-    public Startup(IConfiguration configuration)
+    public class Startup
     {
-      _configuration = configuration;
-    }
+        /// <summary>
+        ///
+        /// </summary>
+        private readonly IConfiguration _configuration;
 
-    /// <summary>
-    ///
-    /// </summary>
-    /// <param name="services"></param>
-    public void ConfigureServices(IServiceCollection services)
-    {
-      services.AddApiVersioning(options =>
-      {
-        options.ReportApiVersions = true;
-      });
-
-      services.AddControllers();
-      services.AddCors(options =>
-      {
-        options.AddPolicy("public", policy =>
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="configuration"></param>
+        public Startup(IConfiguration configuration)
         {
-          policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
-        });
-      });
-
-      services.AddDbContext<LodgingContext>(options =>
-      {
-        options.UseNpgsql(_configuration.GetConnectionString("pgsql"), options =>
-        {
-          options.EnableRetryOnFailure(3);
-        });
-      });
-
-      services.AddScoped<ClientZipkinMiddleware>();
-      services.AddScoped<UnitOfWork>();
-      services.AddScoped<LodgingRepo>();
-      services.AddSwaggerGen();
-      services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ClientSwaggerOptions>();
-      services.AddVersionedApiExplorer(options =>
-      {
-        options.GroupNameFormat = "VV";
-        options.SubstituteApiVersionInUrl = true;
-      });
-    }
-
-    /// <summary>
-    ///
-    /// </summary>
-    /// <param name="applicationBuilder"></param>
-    /// <param name="hostEnvironment"></param>
-    /// <param name="descriptionProvider"></param>
-    public void Configure(IApiVersionDescriptionProvider descriptionProvider, IApplicationBuilder applicationBuilder, IWebHostEnvironment hostEnvironment)
-    {
-      if (hostEnvironment.IsDevelopment())
-      {
-        applicationBuilder.UseDeveloperExceptionPage();
-      }
-
-      applicationBuilder.UseZipkin();
-      applicationBuilder.UseTracing("lodgingapi.rest");
-      applicationBuilder.UseHttpsRedirection();
-      applicationBuilder.UseRouting();
-      applicationBuilder.UseSwagger(options =>
-      {
-        options.RouteTemplate = "rest/lodging/{documentName}/swagger.json";
-      });
-      applicationBuilder.UseSwaggerUI(options =>
-      {
-        options.RoutePrefix = "rest/lodging";
-
-        foreach (var description in descriptionProvider.ApiVersionDescriptions)
-        {
-          options.SwaggerEndpoint($"/rest/lodging/{description.GroupName}/swagger.json", description.GroupName);
+            _configuration = configuration;
         }
-      });
 
-      applicationBuilder.UseCors();
-      applicationBuilder.UseAuthorization();
-      applicationBuilder.UseEndpoints(endpoints =>
-      {
-        endpoints.MapControllers();
-      });
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="services"></param>
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddApiVersioning(options =>
+            {
+                options.ReportApiVersions = true;
+            });
+
+            //services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            services.AddCors(options =>
+            {
+                options.AddPolicy("public", policy =>
+          {
+              policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+          });
+            });
+
+            services.AddDbContext<LodgingContext>(options =>
+            {
+                options.UseNpgsql(_configuration.GetConnectionString("pgsql"), options =>
+          {
+              options.EnableRetryOnFailure(3);
+          });
+            });
+
+            services.AddScoped<ClientZipkinMiddleware>();
+            services.AddScoped<UnitOfWork>();
+            services.AddSwaggerGen();
+            services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ClientSwaggerOptions>();
+            services.AddVersionedApiExplorer(options =>
+            {
+                options.GroupNameFormat = "VV";
+                options.SubstituteApiVersionInUrl = true;
+            });
+
+
+
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="applicationBuilder"></param>
+        /// <param name="hostEnvironment"></param>
+        /// <param name="descriptionProvider"></param>
+        public void Configure(IApiVersionDescriptionProvider descriptionProvider, IApplicationBuilder applicationBuilder, IWebHostEnvironment hostEnvironment)
+        {
+            if (hostEnvironment.IsDevelopment())
+            {
+                applicationBuilder.UseDeveloperExceptionPage();
+            }
+
+            applicationBuilder.UseZipkin();
+            applicationBuilder.UseTracing("lodgingapi.rest");
+            applicationBuilder.UseHttpsRedirection();
+            applicationBuilder.UseRouting();
+            applicationBuilder.UseSwagger(options =>
+            {
+                options.RouteTemplate = "rest/lodging/{documentName}/swagger.json";
+            });
+            applicationBuilder.UseSwaggerUI(options =>
+            {
+                options.RoutePrefix = "rest/lodging";
+
+                foreach (var description in descriptionProvider.ApiVersionDescriptions)
+                {
+                    options.SwaggerEndpoint($"/rest/lodging/{description.GroupName}/swagger.json", description.GroupName);
+                }
+            });
+
+            applicationBuilder.UseCors();
+            applicationBuilder.UseAuthorization();
+            applicationBuilder.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+        }
     }
-  }
 }

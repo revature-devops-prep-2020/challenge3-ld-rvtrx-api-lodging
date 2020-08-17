@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RVTR.Lodging.ObjectModel.Models
 {
@@ -8,6 +9,8 @@ namespace RVTR.Lodging.ObjectModel.Models
     /// </summary>
     public class RentalModel : IValidatableObject
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         public string Name { get; set; }
