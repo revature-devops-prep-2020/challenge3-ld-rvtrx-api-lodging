@@ -43,7 +43,7 @@ namespace RVTR.Lodging.WebApi.Controllers
         public async Task<IActionResult> Get()
         {
             var lodgings = await _unitOfWork.Lodging.SelectAsync();
-            if (lodgings.Count() == 0)
+            if (lodgings == null)
             {
                 return NotFound();
             }
@@ -87,7 +87,7 @@ namespace RVTR.Lodging.WebApi.Controllers
         public async Task<IActionResult> getLodgingsByCityAndOccupancy(string city, int occupancy)
         {
             var lodgings = await _unitOfWork.Lodging.LodgingByCityAndOccupancy(city, occupancy);
-            if(lodgings.Count() == 0)
+            if(lodgings == null)
             {
                 return NotFound();
             }

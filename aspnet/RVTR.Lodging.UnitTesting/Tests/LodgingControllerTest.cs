@@ -28,13 +28,9 @@ namespace RVTR.Lodging.UnitTesting.Tests
       var repositoryMock = new Mock<LodgingRepo>(new LodgingContext(_options));
       var unitOfWorkMock = new Mock<UnitOfWork>(contextMock.Object);
 
-            repositoryMock.Setup(m => m.DeleteAsync(0)).Throws(new Exception());
-            repositoryMock.Setup(m => m.DeleteAsync(1)).Returns(Task.FromResult(1));
-            repositoryMock.Setup(m => m.InsertAsync(It.IsAny<LodgingModel>())).Returns(Task.FromResult<LodgingModel>(null));
             repositoryMock.Setup(m => m.SelectAsync()).Returns(Task.FromResult<IEnumerable<LodgingModel>>(null));
-            repositoryMock.Setup(m => m.SelectAsync(0)).Throws(new Exception());
+            repositoryMock.Setup(m => m.SelectAsync(0)).Returns(Task.FromResult(new LodgingModel()));
             repositoryMock.Setup(m => m.SelectAsync(1)).Returns(Task.FromResult<LodgingModel>(null));
-            repositoryMock.Setup(m => m.Update(It.IsAny<LodgingModel>()));
             unitOfWorkMock.Setup(m => m.Lodging).Returns(repositoryMock.Object);
 
             _logger = loggerMock.Object;
@@ -46,12 +42,8 @@ namespace RVTR.Lodging.UnitTesting.Tests
         public async void Test_Controller_Get()
         {
             var resultMany = await _controller.Get();
-            var resultFail = await _controller.Get(0);
-            var resultOne = await _controller.Get(1);
 
             Assert.NotNull(resultMany);
-            Assert.NotNull(resultFail);
-            Assert.NotNull(resultOne);
         }
 
         [Fact]
