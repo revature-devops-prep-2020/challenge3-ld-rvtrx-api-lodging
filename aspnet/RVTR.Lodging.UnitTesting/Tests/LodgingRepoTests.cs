@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using Xunit;
 using Grpc.Core;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
+using System.Runtime.InteropServices;
 
 namespace RVTR.Lodging.UnitTesting.Tests
 {
@@ -22,15 +24,15 @@ namespace RVTR.Lodging.UnitTesting.Tests
         new LodgingModel()
         {
           Id = 1,
-          Rentals = new List<RentalModel>() { new RentalModel() {Id = 1, Status = "available" } }
-        },
-        new RentalModel() { Id = 1 },
-        new ReviewModel() { Id = 1 }
+          Location = new LocationModel() {Id = 1, Address = new AddressModel() {Id = 1, City = "Austin"}},
+          Rentals = new List<RentalModel>() { new RentalModel() {Id = 1, Occupancy = 3, Status = "available" } }
+        }
       }
     };
 
-    [Fact]
-    public async void Test_LodgingRepo_AvailableLodgings()
+    [Theory]
+    [MemberData(nameof(_records))]
+    public async void Test_LodgingRepo_AvailableLodgings(LodgingModel lodging)
     {
       await _connection.OpenAsync();
 
@@ -39,17 +41,47 @@ namespace RVTR.Lodging.UnitTesting.Tests
         using (var ctx = new LodgingContext(_options))
         {
           await ctx.Database.EnsureCreatedAsync();
+          await ctx.Lodgings.AddAsync(lodging);
+          await ctx.SaveChangesAsync();
         }
 
         using (var ctx = new LodgingContext(_options))
         {
-          var lodgings = new LodgingRepo(ctx);
+          var lodgings = new UnitOfWork(ctx);
 
-          var actual = await lodgings.AvailableLodgings();
+          var actual = await lodgings.Lodging.AvailableLodgings();
 
-          //Assert.Empty(actual);
-          //Assert.Single(actual.ToList());
-          Assert.Null(actual);
+          Assert.NotEmpty(actual);
+        }
+      }
+      finally
+      {
+        await _connection.CloseAsync();
+      }
+    }
+
+    [Theory]
+    [MemberData(nameof(_records))]
+    public async void Test_LodgingRepo_LodgingByCityAndOccupancy(LodgingModel lodging)
+    {
+      await _connection.OpenAsync();
+
+      try
+      {
+        using (var ctx = new LodgingContext(_options))
+        {
+          await ctx.Database.EnsureCreatedAsync();
+          await ctx.Lodgings.AddAsync(lodging);
+          await ctx.SaveChangesAsync();
+        }
+
+        using (var ctx = new LodgingContext(_options))
+        {
+          var lodgings = new UnitOfWork(ctx);
+
+          var actual = await lodgings.Lodging.LodgingByCityAndOccupancy("Austin", 3);
+
+          Assert.NotEmpty(actual);
         }
       }
       finally
