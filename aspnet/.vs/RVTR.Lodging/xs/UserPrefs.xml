@@ -1,9 +1,10 @@
 ﻿<Properties StartupConfiguration="{A0CF8191-7FC0-4CE6-BEA6-F7FA9C68E529}|Default">
   <MonoDevelop.Ide.ItemProperties.RVTR.Lodging.UnitTesting PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="RVTR.Lodging.UnitTesting/Tests/LodgingRepoTests.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="RVTR.Lodging.DataContext/Repositories/UnitOfWork.cs">
     <Files>
-      <File FileName="RVTR.Lodging.UnitTesting/Tests/LodgingRepoTests.cs" Line="1" Column="1" />
-      <File FileName="RVTR.Lodging.DataContext/Repositories/LodgingRepo.cs" Line="1" Column="1" />
+      <File FileName="RVTR.Lodging.UnitTesting/Tests/LodgingRepoTests.cs" Line="32" Column="11" />
+      <File FileName="RVTR.Lodging.DataContext/Repositories/LodgingRepo.cs" Line="27" Column="47" />
+      <File FileName="RVTR.Lodging.DataContext/Repositories/UnitOfWork.cs" Line="13" Column="20" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -12,10 +13,9 @@
             <Node name="RVTR.Lodging.DataContext" expanded="True">
               <Node name="Repositories" expanded="True" />
             </Node>
+            <Node name="RVTR.Lodging.ObjectModel" expanded="True" selected="True" />
             <Node name="RVTR.Lodging.UnitTesting" expanded="True">
-              <Node name="Tests" expanded="True">
-                <Node name="LodgingRepoTests.cs" selected="True" />
-              </Node>
+              <Node name="Tests" expanded="True" />
             </Node>
           </Node>
         </State>
