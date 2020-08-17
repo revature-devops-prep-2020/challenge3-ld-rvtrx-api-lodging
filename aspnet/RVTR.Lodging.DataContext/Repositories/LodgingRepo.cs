@@ -47,26 +47,23 @@ namespace RVTR.Lodging.DataContext.Repositories
             var lodgings = await _db.
                 Include(r => r.Rentals).
                 Include(l => l.Location).
-                Include(a => a.Location.Address).ToListAsync();
+                Include(a => a.Location.Address).
+                Where(b => b.Location.Address.City == city).
+                ToListAsync();
+
+            var testList = new List<LodgingModel>();
 
             foreach (var item in lodgings)
             {
-                if (item.Location.Address.City != city)
+                foreach (var rental in item.Rentals)
                 {
-                    lodgings.Remove(item);
-                }
-                else
-                {
-                    foreach (var rental in item.Rentals)
+                    if (rental.Status.Equals("available") && rental.Occupancy == occupancy)
                     {
-                        if (rental.Status != "available" || rental.Occupancy != occupancy)
-                        {
-                            lodgings.Remove(item);
-                        }
+                        testList.Add(item);
                     }
                 }
             }
-            return lodgings;
+            return testList;
         }
     }
 }
