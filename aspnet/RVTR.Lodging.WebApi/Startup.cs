@@ -71,8 +71,6 @@ namespace RVTR.Lodging.WebApi
                 options.SubstituteApiVersionInUrl = true;
             });
 
-
-
         }
 
         /// <summary>
