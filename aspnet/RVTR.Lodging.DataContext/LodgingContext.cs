@@ -17,12 +17,9 @@ namespace RVTR.Lodging.DataContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
       modelBuilder.Entity<AddressModel>().HasKey(e => e.Id);
-      //modelBuilder.Entity<BathroomModel>().HasKey(e => e.Id);
-      //modelBuilder.Entity<BedroomModel>().HasKey(e => e.Id);
       modelBuilder.Entity<LocationModel>().HasKey(e => e.Id);
       modelBuilder.Entity<LodgingModel>().HasKey(e => e.Id);
       modelBuilder.Entity<RentalModel>().HasKey(e => e.Id);
-      //modelBuilder.Entity<RentalUnitModel>().HasKey(e => e.Id);
       modelBuilder.Entity<ReviewModel>().HasKey(e => e.Id);
     }
   }
