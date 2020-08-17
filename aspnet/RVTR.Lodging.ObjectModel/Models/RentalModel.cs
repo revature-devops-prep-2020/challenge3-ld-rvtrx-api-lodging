@@ -16,6 +16,7 @@ namespace RVTR.Lodging.ObjectModel.Models
         public string Name { get; set; }
 
         public int? LodgingId { get; set; }
+
         public LodgingModel Lodging { get; set; }
 
         public int Occupancy { get; set; }

@@ -42,7 +42,6 @@ namespace RVTR.Lodging.DataContext.Repositories
             }
             return lodgings;
         }
-
         public async Task<IEnumerable<LodgingModel>> LodgingByCityAndOccupancy(string city, int occupancy)
         {
             var lodgings = await _db.
@@ -50,9 +49,9 @@ namespace RVTR.Lodging.DataContext.Repositories
                 Include(l => l.Location).
                 Include(a => a.Location.Address).ToListAsync();
 
-            foreach(var item in lodgings)
+            foreach (var item in lodgings)
             {
-                if(item.Location.Address.City != city)
+                if (item.Location.Address.City != city)
                 {
                     lodgings.Remove(item);
                 }
@@ -60,14 +59,13 @@ namespace RVTR.Lodging.DataContext.Repositories
                 {
                     foreach (var rental in item.Rentals)
                     {
-                      if (rental.Status != "available" || rental.Occupancy != occupancy)
-                      {
-                        lodgings.Remove(item);
-                      }
+                        if (rental.Status != "available" || rental.Occupancy != occupancy)
+                        {
+                            lodgings.Remove(item);
+                        }
                     }
-                } 
+                }
             }
-
             return lodgings;
         }
     }

@@ -22,7 +22,6 @@ namespace RVTR.Lodging.DataContext
             modelBuilder.Entity<LodgingModel>().HasKey(e => e.Id);
             modelBuilder.Entity<RentalModel>().HasKey(e => e.Id);
             modelBuilder.Entity<ReviewModel>().HasKey(e => e.Id);
-
         }
     }
 }

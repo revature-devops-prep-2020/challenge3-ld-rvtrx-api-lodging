@@ -65,9 +65,13 @@ namespace RVTR.Lodging.WebApi.Controllers
         {
             var lodgings = await _unitOfWork.Lodging.SelectAsync();
             if (lodgings == null)
+            {
                 return NotFound();
+            }
             else
+            {
                 return Ok(lodgings);
+            }
         }
 
         /// <summary>
@@ -119,17 +123,6 @@ namespace RVTR.Lodging.WebApi.Controllers
         }
 
         /// <summary>
-        /// Gets all lodgings based on whether they have any available rentals
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("getAvailableLodgings")]
-        public async Task<IActionResult> getAvailableLodgings()
-        {
-            return Ok(await _unitOfWork.Lodging.AvailableLodgings());
-        }
-
-        /// <summary>
         /// Gets all lodgings by city and occupancy
         /// </summary>
         /// <param name="city"></param>
@@ -143,3 +136,4 @@ namespace RVTR.Lodging.WebApi.Controllers
         }
     }
 }
+

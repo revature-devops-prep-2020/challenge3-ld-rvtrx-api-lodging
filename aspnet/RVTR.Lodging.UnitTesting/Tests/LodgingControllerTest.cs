@@ -21,12 +21,12 @@ namespace RVTR.Lodging.UnitTesting.Tests
         private readonly ILogger<LodgingController> _logger;
         private readonly UnitOfWork _unitOfWork;
 
-        public LodgingControllerTest()
-        {
-            var contextMock = new Mock<LodgingContext>(_options);
-            var loggerMock = new Mock<ILogger<LodgingController>>();
-            var repositoryMock = new Mock<LodgingRepo>(new LodgingContext(_options));
-            var unitOfWorkMock = new Mock<UnitOfWork>(contextMock.Object);
+    public LodgingControllerTest()
+    {
+      var contextMock = new Mock<LodgingContext>(_options);
+      var loggerMock = new Mock<ILogger<LodgingController>>();
+      var repositoryMock = new Mock<LodgingRepo>(new LodgingContext(_options));
+      var unitOfWorkMock = new Mock<UnitOfWork>(contextMock.Object);
 
             repositoryMock.Setup(m => m.DeleteAsync(0)).Throws(new Exception());
             repositoryMock.Setup(m => m.DeleteAsync(1)).Returns(Task.FromResult(1));
@@ -62,6 +62,15 @@ namespace RVTR.Lodging.UnitTesting.Tests
             Assert.NotNull(resultMany);
             Assert.NotNull(resultFail);
             Assert.NotNull(resultOne);
+        }
+
+        public async void Test_Controller_GetID()
+        {
+            var failResult = await _controller.Get(0);
+            var returnOneResult = await _controller.Get(1);
+
+            Assert.NotNull(failResult);
+            Assert.NotNull(returnOneResult);
         }
 
         [Fact]
