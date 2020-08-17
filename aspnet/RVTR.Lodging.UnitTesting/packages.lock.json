@@ -263,8 +263,8 @@
       },
       "Microsoft.AspNetCore.JsonPatch": {
         "type": "Transitive",
-        "resolved": "3.1.7",
-        "contentHash": "/gD5mRjrFNvF/aTUeIP+ppL7xMd0QPO+em9gYjfM+z5VRcKV+/rXcL6iGF92RAoLUvalBixObqjcPC2lMqzwow==",
+        "resolved": "3.1.3",
+        "contentHash": "03Z8sRA1Rxu7X2CRz6aPZkrbEX9IzD7wb/+yF1LU0U/g0hLWi7ynGovIe2aeHhk7Gsznwr3AAP2D9s5SO7v5KQ==",
         "dependencies": {
           "Microsoft.CSharp": "4.7.0",
           "Newtonsoft.Json": "12.0.2"
@@ -272,10 +272,10 @@
       },
       "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
         "type": "Transitive",
-        "resolved": "3.1.7",
-        "contentHash": "iqnyCy5d7D0yaVG1/xjt+bz9bIIwHSt7qX8AmTDGTr6VX2BY5XMGfMLD2jYaglwbQanTTUeRd3FziNLx300Hyg==",
+        "resolved": "3.1.3",
+        "contentHash": "71aKJMt9u1WE3/ji17FaIF/RgxZkL3mE7Rf27e08wpg25xWDKo2fvJLHu9R3niYnLgxyCqE7AKgm5FqG2WVGcA==",
         "dependencies": {
-          "Microsoft.AspNetCore.JsonPatch": "3.1.7",
+          "Microsoft.AspNetCore.JsonPatch": "3.1.3",
           "Newtonsoft.Json": "12.0.2",
           "Newtonsoft.Json.Bson": "1.0.2"
         }
@@ -2058,7 +2058,7 @@
       "rvtr.lodging.webapi": {
         "type": "Project",
         "dependencies": {
-          "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "3.1.7",
+          "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "3.1.3",
           "RVTR.Lodging.DataContext": "1.0.0",
           "RVTR.Lodging.ObjectModel": "1.0.0",
           "microsoft.aspnetcore.mvc.versioning": "4.1.1",

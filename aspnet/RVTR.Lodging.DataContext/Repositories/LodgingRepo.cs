@@ -15,6 +15,18 @@ namespace RVTR.Lodging.DataContext.Repositories
         {
         }
 
+        public override async Task<IEnumerable<LodgingModel>> SelectAsync() => await _db
+            .Include(r => r.Rentals)
+            .Include(l => l.Location)
+            .ThenInclude(a => a.Address)
+            .ToListAsync();
+
+        public override async Task<LodgingModel> SelectAsync(int id) => await _db.Include(r => r.Rentals)
+            .Include(l => l.Location)
+            .ThenInclude(a => a.Address)
+            .FirstOrDefaultAsync(x => x.Id == id)
+            .ConfigureAwait(true);
+
         public async Task<IEnumerable<LodgingModel>> AvailableLodgings()
         {
             var lodgings = await _db.ToListAsync();
