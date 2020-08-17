@@ -22,30 +22,6 @@ namespace RVTR.Lodging.DataContext
             modelBuilder.Entity<LodgingModel>().HasKey(e => e.Id);
             modelBuilder.Entity<RentalModel>().HasKey(e => e.Id);
             modelBuilder.Entity<ReviewModel>().HasKey(e => e.Id);
-
-            modelBuilder.Entity<LodgingModel>().HasData(
-               new LodgingModel()
-               {
-                   Id = 1,
-                   Location = null,
-                   Name = "Test",
-                   Rentals =
-                     new List<RentalModel>()
-                     {new RentalModel(){
-                         Id = 1,
-                         Name = "string",
-                         LodgingId = 1,
-                         Occupancy = 0,
-                         Type = "cabin",
-                         Status = "booked",
-                         Price = 0,
-                         DiscountedPrice = 0
-                     }},
-                   Reviews = new List<ReviewModel>()
-                   {
-
-                   }
-               });
         }
     }
 }

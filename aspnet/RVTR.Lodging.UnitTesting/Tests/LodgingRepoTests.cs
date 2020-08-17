@@ -22,15 +22,16 @@ namespace RVTR.Lodging.UnitTesting.Tests
         new LodgingModel()
         {
           Id = 1,
-          Rentals = new List<RentalModel>() { new RentalModel() {Id = 1, Status = "available" } }
+          Rentals = new List<RentalModel>() { new RentalModel() {Id = 2, Status = "available" } }
         },
         new RentalModel() { Id = 1 },
         new ReviewModel() { Id = 1 }
       }
     };
 
-    [Fact]
-    public async void Test_LodgingRepo_AvailableLodgings()
+    [Theory]
+    [MemberData(nameof(_records))]
+    public async void Test_LodgingRepo_AvailableLodgings(LodgingModel lodging)
     {
       await _connection.OpenAsync();
 
@@ -39,6 +40,8 @@ namespace RVTR.Lodging.UnitTesting.Tests
         using (var ctx = new LodgingContext(_options))
         {
           await ctx.Database.EnsureCreatedAsync();
+          await ctx.Lodgings.AddAsync(lodging);
+          await ctx.SaveChangesAsync();
         }
 
         using (var ctx = new LodgingContext(_options))
@@ -47,9 +50,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
 
           var actual = await lodgings.AvailableLodgings();
 
-          //Assert.Empty(actual);
-          //Assert.Single(actual.ToList());
-          Assert.Null(actual);
+          Assert.NotEmpty(actual);
         }
       }
       finally
