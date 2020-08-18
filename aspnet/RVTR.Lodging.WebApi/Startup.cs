@@ -48,16 +48,16 @@ namespace RVTR.Lodging.WebApi
       {
         options.AddPolicy("public", policy =>
         {
-      policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
-    });
+          policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+        });
       });
 
       services.AddDbContext<LodgingContext>(options =>
       {
         options.UseNpgsql(_configuration.GetConnectionString("pgsql"), options =>
         {
-      options.EnableRetryOnFailure(3);
-    });
+          options.EnableRetryOnFailure(3);
+        });
       });
 
       services.AddScoped<ClientZipkinMiddleware>();
@@ -87,7 +87,6 @@ namespace RVTR.Lodging.WebApi
 
       applicationBuilder.UseZipkin();
       applicationBuilder.UseTracing("lodgingapi.rest");
-      applicationBuilder.UseHttpsRedirection();
       applicationBuilder.UseRouting();
       applicationBuilder.UseSwagger(options =>
       {
