@@ -1,4 +1,4 @@
-using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
@@ -20,7 +20,6 @@ namespace RVTR.Lodging.WebApi.Controllers
   {
     private readonly ILogger<LodgingController> _logger;
     private readonly UnitOfWork _unitOfWork;
-    private readonly LodgingRepo _lodgingRepo;
 
     /// <summary>
     /// Constructor for the LodgingController sets up logger and unitOfWork dependencies
@@ -38,19 +37,10 @@ namespace RVTR.Lodging.WebApi.Controllers
     /// </summary>
     /// <returns>The Lodgings if successful or NotFound if there are no lodgings</returns>
     [HttpGet]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(IEnumerable<LodgingModel>), StatusCodes.Status200OK)]
     public async Task<IActionResult> Get()
     {
-      var lodgings = await _unitOfWork.Lodging.SelectAsync();
-      if (lodgings == null)
-      {
-        return NotFound();
-      }
-      else
-      {
-        return Ok(lodgings);
-      }
+      return Ok(await _unitOfWork.Lodging.SelectAsync());
     }
 
     /// <summary>
@@ -59,7 +49,7 @@ namespace RVTR.Lodging.WebApi.Controllers
     /// <param name="id">The Lodging Id</param>
     /// <returns>The Lodgings if successful or NotFound if no lodging was found</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(LodgingModel), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Get(int id)
     {
@@ -81,21 +71,11 @@ namespace RVTR.Lodging.WebApi.Controllers
     /// <param name="occupancy">The occupancy</param>
     /// <returns>The filtered Lodgings</returns>
     [HttpGet]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(IEnumerable<LodgingModel>), StatusCodes.Status200OK)]
     [Route("available")]
     public async Task<IActionResult> getLodgingsByCityAndOccupancy(string city, int occupancy)
     {
-      var lodgings = await _unitOfWork.Lodging.LodgingByCityAndOccupancy(city, occupancy);
-      if (lodgings == null)
-      {
-        return NotFound();
-      }
-      else
-      {
-        return Ok(lodgings);
-      }
-
+      return Ok(await _unitOfWork.Lodging.LodgingByCityAndOccupancy(city, occupancy));
     }
   }
 }
