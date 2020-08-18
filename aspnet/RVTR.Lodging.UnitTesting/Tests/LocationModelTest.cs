@@ -40,5 +40,6 @@ namespace RVTR.Lodging.UnitTesting.Tests
 
       Assert.Empty(location.Validate(validationContext));
     }
+
   }
 }

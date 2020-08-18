@@ -43,21 +43,21 @@ namespace RVTR.Lodging.WebApi
         options.ReportApiVersions = true;
       });
 
-      services.AddControllers();
+      services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
       services.AddCors(options =>
       {
         options.AddPolicy("public", policy =>
         {
-          policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
-        });
+      policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+    });
       });
 
       services.AddDbContext<LodgingContext>(options =>
       {
         options.UseNpgsql(_configuration.GetConnectionString("pgsql"), options =>
         {
-          options.EnableRetryOnFailure(3);
-        });
+      options.EnableRetryOnFailure(3);
+    });
       });
 
       services.AddScoped<ClientZipkinMiddleware>();
@@ -69,6 +69,7 @@ namespace RVTR.Lodging.WebApi
         options.GroupNameFormat = "VV";
         options.SubstituteApiVersionInUrl = true;
       });
+
     }
 
     /// <summary>
@@ -86,6 +87,7 @@ namespace RVTR.Lodging.WebApi
 
       applicationBuilder.UseZipkin();
       applicationBuilder.UseTracing("lodgingapi.rest");
+      applicationBuilder.UseHttpsRedirection();
       applicationBuilder.UseRouting();
       applicationBuilder.UseSwagger(options =>
       {
