@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace RVTR.Lodging.ObjectModel.Interfaces
 {
-  public interface IRepository<TEntity> where TEntity : class 
+  public interface IRepository<TEntity> where TEntity : class
   {
     Task DeleteAsync(int id);
 
