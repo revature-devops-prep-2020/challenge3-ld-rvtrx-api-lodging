@@ -5,9 +5,9 @@ using RVTR.Lodging.ObjectModel.Models;
 
 namespace RVTR.Lodging.ObjectModel.Interfaces
 {
-  public interface ILodgingRepo
+  public interface ILodgingRepo: IRepository<LodgingModel>
   {
     Task<IEnumerable<LodgingModel>> AvailableLodgings();
-    Task DeleteAsync(int id);
+    
   }
 }
