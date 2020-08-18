@@ -30,13 +30,13 @@ namespace RVTR.Lodging.DataContext
       modelBuilder.Entity<LodgingModel>()
           .HasData(
           //Lodging 1
-          new LodgingModel { },
+          new LodgingModel { Id = 1, Name = "Dragon Fly", Bathrooms = 2},
           //Lodging 2
-          new LodgingModel { },
+          new LodgingModel { Id = 2, Name = "Galleywinter", Bathrooms = 3 },
           //Lodging 3
-          new LodgingModel { },
+          new LodgingModel { Id = 3, Name = "Red Creek", Bathrooms = 5 },
           //Lodging 4
-          new LodgingModel { }
+          new LodgingModel { Id = 4, Name = "Lotus Belle", Bathrooms = 6}
         );
 
       //Rentals
@@ -179,6 +179,82 @@ namespace RVTR.Lodging.DataContext
           DiscountedPrice = 280
         }
         );
+
+        modelBuilder.Entity<LocationModel>()
+          .HasData(
+            new LocationModel{
+              Id = 1,
+              Latitude = "38.0755N",
+              Longitude = "77.9889W"
+              
+            },
+            new LocationModel{
+              Id = 2,
+              Latitude = "38.0103N",
+              Longitude = "78.8152W"
+            },
+            new LocationModel{
+              Id = 3,
+              Latitude = "",
+              Longitude = ""
+            },
+            new LocationModel{
+              Id = 4,
+              Latitude = "",
+              Longitude = ""
+            }
+
+          );
+
+          modelBuilder.Entity<RentalModel>()
+        .HasData(
+          new AddressModel{
+            Id = 1,
+            City = "Palm Bay" ,
+            Country = "USA",
+            PostalCode = "32908",
+            StateProvince = "FL",
+            Street = "750 Osmosis Dr SW",
+            LocationId = 1,
+
+          },
+
+           new AddressModel{
+            Id = 2,
+            City = "Afton" ,
+            Country = "USA",
+            PostalCode = "22920",
+            StateProvince = "VA",
+            Street = "8801 Dick Woods Rd",
+            LocationId = 2,
+
+          },
+
+          new AddressModel{
+            Id = 3,
+            City = "Hanna" ,
+            Country = "USA",
+            PostalCode = "84031",
+            StateProvince = "UT",
+            Street = "5761 Upper, Red Creek Rd",
+            LocationId = 3,
+
+          },
+          new AddressModel{
+            Id = 4,
+            City = "Topanga" ,
+            Country = "USA",
+            PostalCode = "90290",
+            StateProvince = "CA",
+            Street = "101 S Topanga Canyon Blvd",
+            LocationId = 4,
+
+          }
+
+
+        );
+
+
     }
   }
 }
