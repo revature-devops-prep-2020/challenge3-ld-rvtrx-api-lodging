@@ -10,7 +10,7 @@ namespace RVTR.Lodging.ObjectModel.Models
   {
     public int Id { get; set; }
 
-        public AddressModel Address { get; set; }
+    public AddressModel Address { get; set; }
 
     public string Latitude { get; set; }
 

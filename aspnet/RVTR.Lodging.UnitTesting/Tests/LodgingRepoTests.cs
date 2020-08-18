@@ -23,42 +23,12 @@ namespace RVTR.Lodging.UnitTesting.Tests
       {
         new LodgingModel()
         {
-          Id = 1,
-          Location = new LocationModel() {Id = 1, Address = new AddressModel() {Id = 1, City = "Austin"}},
-          Rentals = new List<RentalModel>() { new RentalModel() {Id = 1, Occupancy = 3, Status = "available" } }
+          Id = 5,
+          Location = new LocationModel() {Id = 100, Address = new AddressModel() {Id = 100, City = "Austin"}},
+          Rentals = new List<RentalModel>() { new RentalModel() {Id = 100, Occupancy = 3, Status = "available" } }
         }
       }
     };
-
-    [Theory]
-    [MemberData(nameof(_records))]
-    public async void Test_LodgingRepo_AvailableLodgings(LodgingModel lodging)
-    {
-      await _connection.OpenAsync();
-
-      try
-      {
-        using (var ctx = new LodgingContext(_options))
-        {
-          await ctx.Database.EnsureCreatedAsync();
-          await ctx.Lodgings.AddAsync(lodging);
-          await ctx.SaveChangesAsync();
-        }
-
-        using (var ctx = new LodgingContext(_options))
-        {
-          var lodgings = new UnitOfWork(ctx);
-
-          var actual = await lodgings.Lodging.AvailableLodgings();
-
-          Assert.NotEmpty(actual);
-        }
-      }
-      finally
-      {
-        await _connection.CloseAsync();
-      }
-    }
 
     [Theory]
     [MemberData(nameof(_records))]

@@ -29,52 +29,32 @@ namespace RVTR.Lodging.DataContext
           {
             Id = 1,
             Name = "Dragon Fly",
-            Bathrooms = 2,
-            Location = new LocationModel
-            {
-              Id = 1,
-              Latitude = "38.0755N",
-              Longitude = "77.9889W"
-            }
+            LocationId = 1,
+            Bathrooms = 2
           },
           //Lodging 2
           new LodgingModel
           {
             Id = 2,
             Name = "Galleywinter",
-            Bathrooms = 3,
-            Location = new LocationModel
-            {
-              Id = 2,
-              Latitude = "38.0103N",
-              Longitude = "78.8152W"
-            }
+            LocationId = 2,
+            Bathrooms = 3
           },
           //Lodging 3
           new LodgingModel
           {
             Id = 3,
             Name = "Red Creek",
-            Bathrooms = 5,
-            Location = new LocationModel
-            {
-              Id = 3,
-              Latitude = "",
-              Longitude = ""
-            }
+            LocationId = 3,
+            Bathrooms = 5
           },
           //Lodging 4
           new LodgingModel
           {
             Id = 4,
             Name = "Lotus Belle",
-            Bathrooms = 6,
-            Location = new LocationModel
-            {
-              Id = 4,
-              Latitude = "",
-              Longitude = ""
-            }
+            LocationId = 4,
+            Bathrooms = 6
           });
 
       // Rentals
@@ -214,6 +194,35 @@ namespace RVTR.Lodging.DataContext
           Status = "booked",
           Price = 300,
           DiscountedPrice = 280
+        });
+
+      //Locations
+      modelBuilder.Entity<LocationModel>().HasData(
+        new LocationModel
+        {
+          Id = 1,
+          Latitude = "38.0755N",
+          Longitude = "77.9889W"
+
+        },
+        new LocationModel
+        {
+          Id = 2,
+          Latitude = "38.0103N",
+          Longitude = "78.8152W"
+        },
+        new LocationModel
+        {
+          Id = 3,
+          Latitude = "",
+          Longitude = ""
+        },
+        new LocationModel
+        {
+          Id = 4,
+          Latitude = "",
+          Longitude = ""
+
         });
 
       // Addresses

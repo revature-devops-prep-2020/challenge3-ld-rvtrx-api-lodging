@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using RVTR.Lodging.DataContext;
@@ -17,9 +18,9 @@ namespace RVTR.Lodging.UnitTesting.Tests
     {
       new object[]
       {
-        new LodgingModel() { Id = 1 },
-        new RentalModel() { Id = 1 },
-        new ReviewModel() { Id = 1 }
+        new LodgingModel() { Id = 100 },
+        new RentalModel() { Id = 100 },
+        new ReviewModel() { Id = 100 }
       }
     };
 
@@ -34,6 +35,10 @@ namespace RVTR.Lodging.UnitTesting.Tests
         using (var ctx = new LodgingContext(_options))
         {
           await ctx.Database.EnsureCreatedAsync();
+          var all = ctx.Lodgings.ToList();
+          ctx.Lodgings.RemoveRange(all);
+          ctx.SaveChanges();
+          var allLeft = ctx.Lodgings.ToList();
           await ctx.Lodgings.AddAsync(lodging);
           await ctx.Rentals.AddAsync(rental);
           await ctx.Reviews.AddAsync(review);
@@ -44,7 +49,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
         {
           var lodgings = new Repository<LodgingModel>(ctx);
 
-          await lodgings.DeleteAsync(1);
+          await lodgings.DeleteAsync(100);
           await ctx.SaveChangesAsync();
 
           Assert.Empty(await ctx.Lodgings.ToListAsync());
@@ -54,7 +59,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
         {
           var rentals = new Repository<RentalModel>(ctx);
 
-          await rentals.DeleteAsync(1);
+          await rentals.DeleteAsync(100);
           await ctx.SaveChangesAsync();
 
           Assert.Empty(await ctx.Rentals.ToListAsync());
@@ -64,7 +69,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
         {
           var reviews = new Repository<ReviewModel>(ctx);
 
-          await reviews.DeleteAsync(1);
+          await reviews.DeleteAsync(100);
           await ctx.SaveChangesAsync();
 
           Assert.Empty(await ctx.Reviews.ToListAsync());
@@ -87,6 +92,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
         using (var ctx = new LodgingContext(_options))
         {
           await ctx.Database.EnsureCreatedAsync();
+          ctx.Lodgings.RemoveRange(ctx.Lodgings);
         }
 
         using (var ctx = new LodgingContext(_options))
@@ -143,7 +149,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
 
           var actual = await lodgings.SelectAsync();
 
-          Assert.Empty(actual);
+          Assert.NotEmpty(actual);
         }
 
         using (var ctx = new LodgingContext(_options))
@@ -152,7 +158,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
 
           var actual = await rentals.SelectAsync();
 
-          Assert.Empty(actual);
+          Assert.NotEmpty(actual);
         }
 
         using (var ctx = new LodgingContext(_options))
@@ -180,13 +186,14 @@ namespace RVTR.Lodging.UnitTesting.Tests
         using (var ctx = new LodgingContext(_options))
         {
           await ctx.Database.EnsureCreatedAsync();
+          ctx.Lodgings.RemoveRange(ctx.Lodgings);
         }
 
         using (var ctx = new LodgingContext(_options))
         {
           var lodgings = new Repository<LodgingModel>(ctx);
 
-          var actual = await lodgings.SelectAsync(1);
+          var actual = await lodgings.SelectAsync(100);
 
           Assert.Null(actual);
         }
@@ -195,7 +202,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
         {
           var rentals = new Repository<RentalModel>(ctx);
 
-          var actual = await rentals.SelectAsync(1);
+          var actual = await rentals.SelectAsync(100);
 
           Assert.Null(actual);
         }
@@ -204,7 +211,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
         {
           var reviews = new Repository<ReviewModel>(ctx);
 
-          var actual = await reviews.SelectAsync(1);
+          var actual = await reviews.SelectAsync(100);
 
           Assert.Null(actual);
         }
@@ -226,6 +233,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
         using (var ctx = new LodgingContext(_options))
         {
           await ctx.Database.EnsureCreatedAsync();
+          ctx.Lodgings.RemoveRange(ctx.Lodgings);
           await ctx.Lodgings.AddAsync(lodging);
           await ctx.Rentals.AddAsync(rental);
           await ctx.Reviews.AddAsync(review);
