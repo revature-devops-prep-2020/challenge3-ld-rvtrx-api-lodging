@@ -35,7 +35,7 @@ namespace RVTR.Lodging.WebApi.Controllers
     /// <summary>
     /// Gets all the lodgings in the database
     /// </summary>
-    /// <returns>The Lodgings if successful or NotFound if there are no lodgings</returns>
+    /// <returns>The Lodgings</returns>
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<LodgingModel>), StatusCodes.Status200OK)]
     public async Task<IActionResult> Get()
