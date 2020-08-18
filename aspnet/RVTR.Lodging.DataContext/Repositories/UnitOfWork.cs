@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using RVTR.Lodging.ObjectModel.Interfaces;
 using RVTR.Lodging.ObjectModel.Models;
 
 namespace RVTR.Lodging.DataContext.Repositories
@@ -10,15 +11,15 @@ namespace RVTR.Lodging.DataContext.Repositories
   {
     private readonly LodgingContext _context;
 
-    public virtual Repository<LodgingModel> Lodging { get; }
-    public virtual Repository<RentalModel> Rental { get; set; }
-    public virtual Repository<ReviewModel> Review { get; set; }
+    public virtual LodgingRepo Lodging { get; }
+    public virtual IRepository<RentalModel> Rental { get; set; }
+    public virtual IRepository<ReviewModel> Review { get; set; }
 
     public UnitOfWork(LodgingContext context)
     {
       _context = context;
 
-      Lodging = new Repository<LodgingModel>(context);
+      Lodging = new LodgingRepo(context);
       Rental = new Repository<RentalModel>(context);
       Review = new Repository<ReviewModel>(context);
     }

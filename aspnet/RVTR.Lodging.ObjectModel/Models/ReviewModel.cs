@@ -20,6 +20,7 @@ namespace RVTR.Lodging.ObjectModel.Models
     public int Rating { get; set; }
 
     public int? LodgingId { get; set; }
+
     public LodgingModel Lodging { get; set; }
 
     /// <summary>

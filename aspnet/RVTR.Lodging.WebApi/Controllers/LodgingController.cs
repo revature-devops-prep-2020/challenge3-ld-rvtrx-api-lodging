@@ -1,5 +1,7 @@
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RVTR.Lodging.DataContext.Repositories;
@@ -8,7 +10,7 @@ using RVTR.Lodging.ObjectModel.Models;
 namespace RVTR.Lodging.WebApi.Controllers
 {
   /// <summary>
-  ///
+  /// The LodgingController handles lodging resources 
   /// </summary>
   [ApiController]
   [ApiVersion("0.0")]
@@ -18,12 +20,13 @@ namespace RVTR.Lodging.WebApi.Controllers
   {
     private readonly ILogger<LodgingController> _logger;
     private readonly UnitOfWork _unitOfWork;
+    private readonly LodgingRepo _lodgingRepo;
 
     /// <summary>
-    ///
+    /// Constructor for the LodgingController sets up logger and unitOfWork dependencies
     /// </summary>
-    /// <param name="logger"></param>
-    /// <param name="unitOfWork"></param>
+    /// <param name="logger">The Logger</param>
+    /// <param name="unitOfWork">The UnitOfWork</param>
     public LodgingController(ILogger<LodgingController> logger, UnitOfWork unitOfWork)
     {
       _logger = logger;
@@ -31,85 +34,69 @@ namespace RVTR.Lodging.WebApi.Controllers
     }
 
     /// <summary>
-    ///
+    /// Gets all the lodgings in the database
     /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(int id)
-    {
-      try
-      {
-        await _unitOfWork.Lodging.DeleteAsync(id);
-        await _unitOfWork.CommitAsync();
-
-        return Ok();
-      }
-      catch
-      {
-        return NotFound(id);
-      }
-    }
-
-    /// <summary>
-    ///
-    /// </summary>
-    /// <returns></returns>
+    /// <returns>The Lodgings if successful or NotFound if there are no lodgings</returns>
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Get()
     {
-      return Ok(await _unitOfWork.Lodging.SelectAsync());
+      var lodgings = await _unitOfWork.Lodging.SelectAsync();
+      if (lodgings == null)
+      {
+        return NotFound();
+      }
+      else
+      {
+        return Ok(lodgings);
+      }
     }
 
     /// <summary>
-    ///
+    /// Gets one Lodging based on its id
     /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
+    /// <param name="id">The Lodging Id</param>
+    /// <returns>The Lodgings if successful or NotFound if no lodging was found</returns>
     [HttpGet("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Get(int id)
     {
-      if(id <= 0)
+      var lodging = await _unitOfWork.Lodging.SelectAsync(id);
+      if (lodging != null)
       {
-        
+        return Ok(lodging);
       }
-
-      try
-      {
-        return Ok(await _unitOfWork.Lodging.SelectAsync(id));
-      }
-      catch
+      else
       {
         return NotFound(id);
       }
     }
 
     /// <summary>
-    ///
+    /// Gets all lodgings with available rentals by city and occupancy
     /// </summary>
-    /// <param name="lodging"></param>
-    /// <returns></returns>
-    [HttpPost]
-    public async Task<IActionResult> Post(LodgingModel lodging)
+    /// <param name="city">The city</param>
+    /// <param name="occupancy">The occupancy</param>
+    /// <returns>The filtered Lodgings</returns>
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Route("available")]
+    public async Task<IActionResult> getLodgingsByCityAndOccupancy(string city, int occupancy)
     {
-      await _unitOfWork.Lodging.InsertAsync(lodging);
-      await _unitOfWork.CommitAsync();
+      var lodgings = await _unitOfWork.Lodging.LodgingByCityAndOccupancy(city, occupancy);
+      if (lodgings == null)
+      {
+        return NotFound();
+      }
+      else
+      {
+        return Ok(lodgings);
+      }
 
-      return Accepted(lodging);
-    }
-
-    /// <summary>
-    ///
-    /// </summary>
-    /// <param name="lodging"></param>
-    /// <returns></returns>
-    [HttpPut]
-    public async Task<IActionResult> Put(LodgingModel lodging)
-    {
-      _unitOfWork.Lodging.Update(lodging);
-      await _unitOfWork.CommitAsync();
-
-      return Accepted(lodging);
     }
   }
 }
+
