@@ -43,7 +43,7 @@ namespace RVTR.Lodging.WebApi
         options.ReportApiVersions = true;
       });
 
-      services.AddControllers();
+      services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
       services.AddCors(options =>
       {
         options.AddPolicy("public", policy =>
@@ -69,6 +69,7 @@ namespace RVTR.Lodging.WebApi
         options.GroupNameFormat = "VV";
         options.SubstituteApiVersionInUrl = true;
       });
+
     }
 
     /// <summary>
