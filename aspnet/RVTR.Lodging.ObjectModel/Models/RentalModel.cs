@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RVTR.Lodging.ObjectModel.Models
 {
@@ -9,15 +8,9 @@ namespace RVTR.Lodging.ObjectModel.Models
   /// </summary>
   public class RentalModel : IValidatableObject
   {
-    
-   
     public int Id { get; set; }
 
     public string Name { get; set; }
-
-    public int? LodgingId { get; set; }
-
-    public LodgingModel Lodging { get; set; }
 
     public int Occupancy { get; set; }
 
@@ -28,6 +21,10 @@ namespace RVTR.Lodging.ObjectModel.Models
     public double Price { get; set; }
 
     public double? DiscountedPrice { get; set; }
+
+    public int? LodgingId { get; set; }
+
+    public LodgingModel Lodging { get; set; }
 
     /// <summary>
     /// Represents the _Rental_ `Validate` method
