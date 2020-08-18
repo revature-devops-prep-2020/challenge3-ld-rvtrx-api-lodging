@@ -13,13 +13,13 @@ using Xunit;
 
 namespace RVTR.Lodging.UnitTesting.Tests
 {
-    public class LodgingControllerTest
-    {
-        private static readonly SqliteConnection _connection = new SqliteConnection("Data Source=:memory:");
-        private static readonly DbContextOptions<LodgingContext> _options = new DbContextOptionsBuilder<LodgingContext>().UseSqlite(_connection).Options;
-        private readonly LodgingController _controller;
-        private readonly ILogger<LodgingController> _logger;
-        private readonly UnitOfWork _unitOfWork;
+  public class LodgingControllerTest
+  {
+    private static readonly SqliteConnection _connection = new SqliteConnection("Data Source=:memory:");
+    private static readonly DbContextOptions<LodgingContext> _options = new DbContextOptionsBuilder<LodgingContext>().UseSqlite(_connection).Options;
+    private readonly LodgingController _controller;
+    private readonly ILogger<LodgingController> _logger;
+    private readonly UnitOfWork _unitOfWork;
 
     public LodgingControllerTest()
     {
@@ -28,32 +28,32 @@ namespace RVTR.Lodging.UnitTesting.Tests
       var repositoryMock = new Mock<LodgingRepo>(new LodgingContext(_options));
       var unitOfWorkMock = new Mock<UnitOfWork>(contextMock.Object);
 
-            repositoryMock.Setup(m => m.SelectAsync()).Returns(Task.FromResult<IEnumerable<LodgingModel>>(null));
-            repositoryMock.Setup(m => m.SelectAsync(0)).Returns(Task.FromResult(new LodgingModel()));
-            repositoryMock.Setup(m => m.SelectAsync(1)).Returns(Task.FromResult<LodgingModel>(null));
-            unitOfWorkMock.Setup(m => m.Lodging).Returns(repositoryMock.Object);
+      repositoryMock.Setup(m => m.SelectAsync()).Returns(Task.FromResult<IEnumerable<LodgingModel>>(null));
+      repositoryMock.Setup(m => m.SelectAsync(0)).Returns(Task.FromResult(new LodgingModel()));
+      repositoryMock.Setup(m => m.SelectAsync(1)).Returns(Task.FromResult<LodgingModel>(null));
+      unitOfWorkMock.Setup(m => m.Lodging).Returns(repositoryMock.Object);
 
-            _logger = loggerMock.Object;
-            _unitOfWork = unitOfWorkMock.Object;
-            _controller = new LodgingController(_logger, _unitOfWork);
-        }
-
-        [Fact]
-        public async void Test_Controller_Get()
-        {
-            var resultMany = await _controller.Get();
-
-            Assert.NotNull(resultMany);
-        }
-
-        [Fact]
-        public async void Test_Controller_GetID()
-        {
-            var failResult = await _controller.Get(0);
-            var returnOneResult = await _controller.Get(1);
-
-            Assert.NotNull(failResult);
-            Assert.NotNull(returnOneResult);
-        }
+      _logger = loggerMock.Object;
+      _unitOfWork = unitOfWorkMock.Object;
+      _controller = new LodgingController(_logger, _unitOfWork);
     }
+
+    [Fact]
+    public async void Test_Controller_Get()
+    {
+      var resultMany = await _controller.Get();
+
+      Assert.NotNull(resultMany);
+    }
+
+    [Fact]
+    public async void Test_Controller_GetID()
+    {
+      var failResult = await _controller.Get(0);
+      var returnOneResult = await _controller.Get(1);
+
+      Assert.NotNull(failResult);
+      Assert.NotNull(returnOneResult);
+    }
+  }
 }
