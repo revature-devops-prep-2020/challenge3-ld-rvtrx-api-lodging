@@ -198,31 +198,33 @@ namespace RVTR.Lodging.DataContext
 
       //Locations
       modelBuilder.Entity<LocationModel>().HasData(
-        new LocationModel
+        new
         {
           Id = 1,
           Latitude = "38.0755N",
-          Longitude = "77.9889W"
-
+          Longitude = "77.9889W",
+          AddressId = 1
         },
-        new LocationModel
+        new 
         {
           Id = 2,
           Latitude = "38.0103N",
-          Longitude = "78.8152W"
+          Longitude = "78.8152W",
+          AddressId = 2
         },
-        new LocationModel
+        new 
         {
           Id = 3,
           Latitude = "",
-          Longitude = ""
+          Longitude = "",
+          AddressId = 3
         },
-        new LocationModel
+        new 
         {
           Id = 4,
           Latitude = "",
-          Longitude = ""
-
+          Longitude = "",
+          AddressId = 4
         });
 
       // Addresses
@@ -236,6 +238,7 @@ namespace RVTR.Lodging.DataContext
           PostalCode = "32908",
           StateProvince = "FL",
           Street = "750 Osmosis Dr SW",
+          LocationId = 1
         },
 
         //Address for location 2
@@ -247,6 +250,7 @@ namespace RVTR.Lodging.DataContext
           PostalCode = "22920",
           StateProvince = "VA",
           Street = "8801 Dick Woods Rd",
+          LocationId = 2
         },
 
         //Address for location 3
@@ -258,6 +262,7 @@ namespace RVTR.Lodging.DataContext
           PostalCode = "84031",
           StateProvince = "UT",
           Street = "5761 Upper, Red Creek Rd",
+          LocationId = 3
         },
 
         //Address for location 4
@@ -269,6 +274,7 @@ namespace RVTR.Lodging.DataContext
           PostalCode = "90290",
           StateProvince = "CA",
           Street = "101 S Topanga Canyon Blvd",
+          LocationId = 4
         });
     }
   }
