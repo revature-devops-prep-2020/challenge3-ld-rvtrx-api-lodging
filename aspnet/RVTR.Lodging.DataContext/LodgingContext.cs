@@ -24,38 +24,38 @@ namespace RVTR.Lodging.DataContext
 
       // Lodgings
       modelBuilder.Entity<LodgingModel>().HasData(
-          //Lodging 1
-          new LodgingModel
-          {
-            Id = 1,
-            Name = "Dragon Fly",
-            LocationId = 1,
-            Bathrooms = 2
-          },
-          //Lodging 2
-          new LodgingModel
-          {
-            Id = 2,
-            Name = "Galleywinter",
-            LocationId = 2,
-            Bathrooms = 3
-          },
-          //Lodging 3
-          new LodgingModel
-          {
-            Id = 3,
-            Name = "Red Creek",
-            LocationId = 3,
-            Bathrooms = 5
-          },
-          //Lodging 4
-          new LodgingModel
-          {
-            Id = 4,
-            Name = "Lotus Belle",
-            LocationId = 4,
-            Bathrooms = 6
-          });
+        //Lodging 1
+        new
+        {
+          Id = 1,
+          Name = "Dragon Fly",
+          LocationId = 1,
+          Bathrooms = 2
+        },
+        //Lodging 2
+        new
+        {
+          Id = 2,
+          Name = "Galleywinter",
+          LocationId = 2,
+          Bathrooms = 3
+        },
+        //Lodging 3
+        new
+        {
+          Id = 3,
+          Name = "Red Creek",
+          LocationId = 3,
+          Bathrooms = 5
+        },
+        //Lodging 4
+        new
+        {
+          Id = 4,
+          Name = "Lotus Belle",
+          LocationId = 4,
+          Bathrooms = 6
+        });
 
       // Rentals
       modelBuilder.Entity<RentalModel>().HasData(
@@ -236,7 +236,6 @@ namespace RVTR.Lodging.DataContext
           PostalCode = "32908",
           StateProvince = "FL",
           Street = "750 Osmosis Dr SW",
-          LocationId = 1,
         },
 
         //Address for location 2
@@ -248,7 +247,6 @@ namespace RVTR.Lodging.DataContext
           PostalCode = "22920",
           StateProvince = "VA",
           Street = "8801 Dick Woods Rd",
-          LocationId = 2,
         },
 
         //Address for location 3
@@ -260,7 +258,6 @@ namespace RVTR.Lodging.DataContext
           PostalCode = "84031",
           StateProvince = "UT",
           Street = "5761 Upper, Red Creek Rd",
-          LocationId = 3,
         },
 
         //Address for location 4
@@ -272,7 +269,6 @@ namespace RVTR.Lodging.DataContext
           PostalCode = "90290",
           StateProvince = "CA",
           Street = "101 S Topanga Canyon Blvd",
-          LocationId = 4,
         });
     }
   }
