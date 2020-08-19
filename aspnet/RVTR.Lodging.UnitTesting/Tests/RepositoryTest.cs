@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using RVTR.Lodging.DataContext;
@@ -34,9 +35,12 @@ namespace RVTR.Lodging.UnitTesting.Tests
         using (var ctx = new LodgingContext(_options))
         {
           await ctx.Database.EnsureCreatedAsync();
-          await ctx.Lodgings.AddAsync(lodging);
+          ctx.Rentals.RemoveRange(ctx.Rentals);
+          ctx.Lodgings.RemoveRange(ctx.Lodgings);
+          ctx.SaveChanges();
           await ctx.Rentals.AddAsync(rental);
           await ctx.Reviews.AddAsync(review);
+          await ctx.Lodgings.AddAsync(lodging);
           await ctx.SaveChangesAsync();
         }
 
@@ -87,6 +91,9 @@ namespace RVTR.Lodging.UnitTesting.Tests
         using (var ctx = new LodgingContext(_options))
         {
           await ctx.Database.EnsureCreatedAsync();
+          ctx.Rentals.RemoveRange(ctx.Rentals);
+          ctx.Lodgings.RemoveRange(ctx.Lodgings);
+          ctx.SaveChanges();
         }
 
         using (var ctx = new LodgingContext(_options))
@@ -135,6 +142,9 @@ namespace RVTR.Lodging.UnitTesting.Tests
         using (var ctx = new LodgingContext(_options))
         {
           await ctx.Database.EnsureCreatedAsync();
+          ctx.Rentals.RemoveRange(ctx.Rentals);
+          ctx.Lodgings.RemoveRange(ctx.Lodgings);
+          ctx.SaveChanges();
         }
 
         using (var ctx = new LodgingContext(_options))
@@ -180,6 +190,9 @@ namespace RVTR.Lodging.UnitTesting.Tests
         using (var ctx = new LodgingContext(_options))
         {
           await ctx.Database.EnsureCreatedAsync();
+          ctx.Rentals.RemoveRange(ctx.Rentals);
+          ctx.Lodgings.RemoveRange(ctx.Lodgings);
+          ctx.SaveChanges();
         }
 
         using (var ctx = new LodgingContext(_options))
@@ -226,6 +239,9 @@ namespace RVTR.Lodging.UnitTesting.Tests
         using (var ctx = new LodgingContext(_options))
         {
           await ctx.Database.EnsureCreatedAsync();
+          ctx.Rentals.RemoveRange(ctx.Rentals);
+          ctx.Lodgings.RemoveRange(ctx.Lodgings);
+          ctx.SaveChanges();
           await ctx.Lodgings.AddAsync(lodging);
           await ctx.Rentals.AddAsync(rental);
           await ctx.Reviews.AddAsync(review);

@@ -7,7 +7,7 @@ namespace RVTR.Lodging.ObjectModel.Interfaces
 {
   public interface ILodgingRepo: IRepository<LodgingModel>
   {
-    Task<IEnumerable<LodgingModel>> AvailableLodgings();
+    Task<IEnumerable<LodgingModel>> LodgingByCityAndOccupancy(string city, int occupancy);
     
   }
 }
