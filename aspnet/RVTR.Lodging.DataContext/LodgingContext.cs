@@ -205,21 +205,21 @@ namespace RVTR.Lodging.DataContext
           Longitude = "77.9889W",
           AddressId = 1
         },
-        new 
+        new
         {
           Id = 2,
           Latitude = "38.0103N",
           Longitude = "78.8152W",
           AddressId = 2
         },
-        new 
+        new
         {
           Id = 3,
           Latitude = "",
           Longitude = "",
           AddressId = 3
         },
-        new 
+        new
         {
           Id = 4,
           Latitude = "",
@@ -279,4 +279,3 @@ namespace RVTR.Lodging.DataContext
     }
   }
 }
-
