@@ -8,7 +8,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
 {
   public class ReviewModelTest
   {
-    public static readonly IEnumerable<Object[]> _reviews = new List<Object[]>
+    public static readonly IEnumerable<object[]> _reviews = new List<object[]>
     {
       new object[]
       {

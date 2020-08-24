@@ -1,14 +1,10 @@
+using System.Collections.Generic;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using RVTR.Lodging.DataContext;
-using RVTR.Lodging.ObjectModel.Models;
 using RVTR.Lodging.DataContext.Repositories;
-using System.Collections.Generic;
+using RVTR.Lodging.ObjectModel.Models;
 using Xunit;
-using Grpc.Core;
-using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
-using System.Runtime.InteropServices;
 
 namespace RVTR.Lodging.UnitTesting.Tests
 {
