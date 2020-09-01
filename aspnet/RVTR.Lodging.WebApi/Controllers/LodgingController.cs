@@ -10,7 +10,7 @@ using RVTR.Lodging.ObjectModel.Models;
 namespace RVTR.Lodging.WebApi.Controllers
 {
   /// <summary>
-  /// The LodgingController handles lodging resources 
+  /// The LodgingController handles lodging resources
   /// </summary>
   [ApiController]
   [ApiVersion("0.0")]
@@ -79,4 +79,3 @@ namespace RVTR.Lodging.WebApi.Controllers
     }
   }
 }
-

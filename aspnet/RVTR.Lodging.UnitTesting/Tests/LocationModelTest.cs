@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using RVTR.Lodging.ObjectModel.Models;
@@ -8,7 +7,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
 {
   public class LocationModelTest
   {
-    public static readonly IEnumerable<Object[]> _locations = new List<Object[]>
+    public static readonly IEnumerable<object[]> _locations = new List<object[]>
     {
       new object[]
       {
