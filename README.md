@@ -13,12 +13,12 @@ RVTR Servicehub Lodging API
 
 <https://www.pivotaltracker.com/n/projects/2443483>
 
+## service link
+
+<https://api.rvtr.net/rest/lodging>
+
 ## license
 
 The project is made available under the terms of the [MIT License][license_mit].
 
 [license_mit]: https://github.com/rvtr/rvtr-svc-lodging/blob/master/LICENSE 'mit license'
-
-## service link
-
-<https://api.rvtr.net/rest/lodging>
