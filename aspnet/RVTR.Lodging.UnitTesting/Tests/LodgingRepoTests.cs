@@ -20,7 +20,8 @@ namespace RVTR.Lodging.UnitTesting.Tests
         new LodgingModel()
         {
           Id = 5,
-          Location = new LocationModel() {Id = 100, Address = new AddressModel() {Id = 100, City = "Austin"}},
+          Location = new LocationModel() {Id = 100, Address = new AddressModel()
+            {Id = 100, City = "Austin", StateProvince = "TX", Country = "USA"}},
           Rentals = new List<RentalModel>() { new RentalModel() {Id = 100, Occupancy = 3, Status = "available" } }
         }
       }
@@ -45,9 +46,9 @@ namespace RVTR.Lodging.UnitTesting.Tests
         {
           var lodgings = new UnitOfWork(ctx);
 
-          var actual = await lodgings.Lodging.LodgingByCityAndOccupancy("Austin", 3);
-
+          var actual = await lodgings.Lodging.LodgingByCityAndOccupancy("Austin", "TX", "USA", 3);
           Assert.NotEmpty(actual);
+
         }
       }
       finally

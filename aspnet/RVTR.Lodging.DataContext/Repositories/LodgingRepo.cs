@@ -36,7 +36,7 @@ namespace RVTR.Lodging.DataContext.Repositories
     /// This method will get all the lodgings who are located in the given city and has rentals that are available with the given occupancy.
     /// It will include the Rentals Table, Location Table, and Address Table
     /// </summary>
-    public async Task<IEnumerable<LodgingModel>> LodgingByCityAndOccupancy(string city, int occupancy)
+    public async Task<IEnumerable<LodgingModel>> LodgingByCityAndOccupancy(string city, string state, string country, int occupancy)
     {
       var lodgingsByCity = await _db
         .Include(r => r.Rentals)

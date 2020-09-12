@@ -68,14 +68,16 @@ namespace RVTR.Lodging.WebApi.Controllers
     /// Gets all lodgings with available rentals by city and occupancy
     /// </summary>
     /// <param name="city">The city</param>
+    /// <param name="state">The state/province</param>
+    /// <param name="country">The country</param>
     /// <param name="occupancy">The occupancy</param>
     /// <returns>The filtered Lodgings</returns>
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<LodgingModel>), StatusCodes.Status200OK)]
     [Route("available")]
-    public async Task<IActionResult> getLodgingsByCityAndOccupancy(string city, int occupancy)
+    public async Task<IActionResult> getLodgingsByCityAndOccupancy(string city, string state, string country, int occupancy)
     {
-      return Ok(await _unitOfWork.Lodging.LodgingByCityAndOccupancy(city, occupancy));
+      return Ok(await _unitOfWork.Lodging.LodgingByCityAndOccupancy(city, state, country, occupancy));
     }
   }
 }
