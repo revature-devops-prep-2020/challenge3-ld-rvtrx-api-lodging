@@ -37,7 +37,7 @@ namespace RVTR.Lodging.DataContext.Repositories
     /// desired occupancy. It will include the Rentals, Location, and Address tables in its non-case-sensitive filter action. Null or empty fields 
     /// for City, State/Province, or Country are ignored. 
     /// </summary>
-    public async Task<IEnumerable<LodgingModel>> LodgingByCityAndOccupancy(string city, string state, string country, int occupancy)
+    public async Task<IEnumerable<LodgingModel>> LodgingByLocationAndOccupancy(string city, string state, string country, int occupancy)
     {
       var lodgingsByCity = await _db
         .Include(r => r.Rentals)

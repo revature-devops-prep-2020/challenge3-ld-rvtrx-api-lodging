@@ -29,7 +29,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
 
     [Theory]
     [MemberData(nameof(_records))]
-    public async void Test_LodgingRepo_LodgingByCityAndOccupancy(LodgingModel lodging)
+    public async void Test_LodgingRepo_LodgingByLocationAndOccupancy(LodgingModel lodging)
     {
       await _connection.OpenAsync();
 
@@ -46,7 +46,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
         {
           var lodgings = new UnitOfWork(ctx);
 
-          var actual = await lodgings.Lodging.LodgingByCityAndOccupancy("auStin", "", null, 3);
+          var actual = await lodgings.Lodging.LodgingByLocationAndOccupancy("auStin", "", null, 3);
           Assert.NotEmpty(actual);
 
         }
