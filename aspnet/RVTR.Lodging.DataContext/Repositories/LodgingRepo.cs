@@ -33,8 +33,9 @@ namespace RVTR.Lodging.DataContext.Repositories
       .FirstOrDefaultAsync(x => x.Id == id);
 
     /// <summary>
-    /// This method will get all the lodgings who are located in the given city and has rentals that are available with the given occupancy.
-    /// It will include the Rentals Table, Location Table, and Address Table
+    /// This method will return all the lodgings in the given location whose rental status is "available" and where occupancy is not less than the 
+    /// desired occupancy. It will include the Rentals, Location, and Address tables in its non-case-sensitive filter action. Null or empty fields 
+    /// for City, State/Province, or Country are ignored. 
     /// </summary>
     public async Task<IEnumerable<LodgingModel>> LodgingByCityAndOccupancy(string city, string state, string country, int occupancy)
     {
@@ -42,7 +43,9 @@ namespace RVTR.Lodging.DataContext.Repositories
         .Include(r => r.Rentals)
         .Include(l => l.Location)
         .Include(a => a.Location.Address)
-        .Where(b => b.Location.Address.City == city)
+        .Where(c => string.IsNullOrEmpty(city) ? true : c.Location.Address.City.ToLower() == city.ToLower())
+        .Where(s => string.IsNullOrEmpty(state) ? true : s.Location.Address.StateProvince.ToLower() == state.ToLower())
+        .Where(s => string.IsNullOrEmpty(country) ? true : s.Location.Address.Country.ToLower() == country.ToLower())
         .ToListAsync();
 
       var filteredLodgings = new List<LodgingModel>();

@@ -46,7 +46,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
         {
           var lodgings = new UnitOfWork(ctx);
 
-          var actual = await lodgings.Lodging.LodgingByCityAndOccupancy("Austin", "TX", "USA", 3);
+          var actual = await lodgings.Lodging.LodgingByCityAndOccupancy("auStin", "", null, 3);
           Assert.NotEmpty(actual);
 
         }
