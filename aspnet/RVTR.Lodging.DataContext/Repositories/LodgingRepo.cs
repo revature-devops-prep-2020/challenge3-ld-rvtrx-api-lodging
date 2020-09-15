@@ -54,7 +54,7 @@ namespace RVTR.Lodging.DataContext.Repositories
       {
         foreach (var rental in item.Rentals)
         {
-          if (rental.Status.Equals("available") && rental.Occupancy == occupancy)
+          if (rental.Status.Equals("available") && rental.Occupancy >= occupancy)
           {
             if(!filteredLodgings.Contains(item))
             {
