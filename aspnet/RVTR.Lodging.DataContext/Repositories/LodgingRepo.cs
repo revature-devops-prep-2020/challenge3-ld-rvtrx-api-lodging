@@ -43,9 +43,9 @@ namespace RVTR.Lodging.DataContext.Repositories
         .Include(r => r.Rentals)
         .Include(l => l.Location)
         .Include(a => a.Location.Address)
-        .Where(c => string.IsNullOrEmpty(city) ? true : c.Location.Address.City.ToLower() == city.ToLower())
-        .Where(s => string.IsNullOrEmpty(state) ? true : s.Location.Address.StateProvince.ToLower() == state.ToLower())
-        .Where(s => string.IsNullOrEmpty(country) ? true : s.Location.Address.Country.ToLower() == country.ToLower())
+        .Where(c => string.IsNullOrEmpty(city) || c.Location.Address.City.ToLower() == city.ToLower())
+        .Where(s => string.IsNullOrEmpty(state) || s.Location.Address.StateProvince.ToLower() == state.ToLower())
+        .Where(c => string.IsNullOrEmpty(country) || c.Location.Address.Country.ToLower() == country.ToLower())
         .ToListAsync();
 
       var filteredLodgings = new List<LodgingModel>();
@@ -54,12 +54,11 @@ namespace RVTR.Lodging.DataContext.Repositories
       {
         foreach (var rental in item.Rentals)
         {
-          if (rental.Status.Equals("available") && rental.Occupancy >= occupancy)
+          if (rental.Status.Equals("available") 
+            && rental.Occupancy >= occupancy 
+            && !filteredLodgings.Contains(item))
           {
-            if(!filteredLodgings.Contains(item))
-            {
-              filteredLodgings.Add(item);
-            }
+            filteredLodgings.Add(item);
           }
         }
       }

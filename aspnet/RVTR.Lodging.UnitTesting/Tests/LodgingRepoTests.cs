@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using RVTR.Lodging.DataContext;
@@ -20,9 +21,24 @@ namespace RVTR.Lodging.UnitTesting.Tests
         new LodgingModel()
         {
           Id = 5,
-          Location = new LocationModel() {Id = 100, Address = new AddressModel()
-            {Id = 100, City = "Austin", StateProvince = "TX", Country = "USA"}},
-          Rentals = new List<RentalModel>() { new RentalModel() {Id = 100, Occupancy = 3, Status = "available" } }
+          Location = new LocationModel() 
+          {
+            Id = 100, Address = new AddressModel()
+            {
+              Id = 100, City = "Austin", StateProvince = "TX", Country = "USA"
+            }
+          },
+          Rentals = new List<RentalModel>() 
+          { 
+            new RentalModel() 
+            {
+              Id = 100, Occupancy = 3, Status = "available" 
+            },
+            new RentalModel() 
+            {
+              Id = 101, Occupancy = 3, Status = "available" 
+            }
+          }
         }
       }
     };
@@ -48,6 +64,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
           var actual = await lodgings.Lodging.LodgingByLocationAndOccupancy("auStin", "", null, 2);
 
           Assert.NotEmpty(actual);
+          Assert.True(actual.Count() == 1);
         }
       }
       finally
