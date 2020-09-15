@@ -32,7 +32,6 @@ namespace RVTR.Lodging.UnitTesting.Tests
     public async void Test_LodgingRepo_LodgingByLocationAndOccupancy(LodgingModel lodging)
     {
       await _connection.OpenAsync();
-
       try
       {
         using (var ctx = new LodgingContext(_options))
@@ -46,9 +45,9 @@ namespace RVTR.Lodging.UnitTesting.Tests
         {
           var lodgings = new UnitOfWork(ctx);
 
-          var actual = await lodgings.Lodging.LodgingByLocationAndOccupancy("auStin", "", null, 2);
-          Assert.NotEmpty(actual);
+          var actual = await lodgings.Lodging.LodgingByLocationAndOccupancy("auStin", "", null, 3);
 
+          Assert.NotEmpty(actual);
         }
       }
       finally

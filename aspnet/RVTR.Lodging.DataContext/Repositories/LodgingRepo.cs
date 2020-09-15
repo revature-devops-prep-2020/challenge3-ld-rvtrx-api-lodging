@@ -39,7 +39,7 @@ namespace RVTR.Lodging.DataContext.Repositories
     /// </summary>
     public async Task<IEnumerable<LodgingModel>> LodgingByLocationAndOccupancy(string city, string state, string country, int occupancy)
     {
-      var lodgingsByCity = await _db
+      var lodgingsByLocation = await _db
         .Include(r => r.Rentals)
         .Include(l => l.Location)
         .Include(a => a.Location.Address)
@@ -50,13 +50,16 @@ namespace RVTR.Lodging.DataContext.Repositories
 
       var filteredLodgings = new List<LodgingModel>();
 
-      foreach (var item in lodgingsByCity)
+      foreach (var item in lodgingsByLocation)
       {
         foreach (var rental in item.Rentals)
         {
-          if (rental.Status.Equals("available") && rental.Occupancy >= occupancy)
+          if (rental.Status.Equals("available") && rental.Occupancy == occupancy)
           {
-            filteredLodgings.Add(item);
+            if(!filteredLodgings.Contains(item))
+            {
+              filteredLodgings.Add(item);
+            }
           }
         }
       }
