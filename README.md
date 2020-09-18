@@ -16,6 +16,7 @@ sentry: https://sentry.io/organizations/rvtr
 prometheus: https://metrics.rvtr.net:9090/
 grafana: https://analytics.rvtr.net:3000/
 traefik: https://traefik.rvtr.net:9000/dashboard/#/
+swagger: https://api.rvtr.net/rest/lodging/index.html
 
 ## backlog
 
