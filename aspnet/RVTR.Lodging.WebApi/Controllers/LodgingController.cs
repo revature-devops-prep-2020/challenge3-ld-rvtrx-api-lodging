@@ -77,7 +77,7 @@ namespace RVTR.Lodging.WebApi.Controllers
     [Route("available")]
     public async Task<IActionResult> getLodgingsByLocationAndOccupancy(string city, string state, string country, int occupancy)
     {
-      return Ok(await _unitOfWork.Lodging.LodgingByLocationAndOccupancy(city, state, country, occupancy));
+      return Ok(await _unitOfWork.Lodging.LodgingByLocationAndOccupancy(occupancy, city, state, country));
     }
   }
 }

@@ -1,13 +1,14 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using RVTR.Lodging.ObjectModel.Interfaces;
 using RVTR.Lodging.ObjectModel.Models;
 
 namespace RVTR.Lodging.DataContext.Repositories
 {
-  public class LodgingRepo : Repository<LodgingModel>, ILodgingRepo
+  public class LodgingRepo : Repository<LodgingModel>
   {
 
     public LodgingRepo(LodgingContext context) : base(context)
@@ -34,29 +35,33 @@ namespace RVTR.Lodging.DataContext.Repositories
 
     /// <summary>
     /// This method will return all the lodgings in the given location whose rental status is "available" and where occupancy is not less than the 
-    /// desired occupancy. It will include the Rentals, Location, and Address tables in its non-case-sensitive filter action. Null or empty fields 
-    /// for City, State/Province, or Country are ignored. 
+    /// desired occupancy. It will include the Rentals, Location, and Address tables in its non-case-sensitive filter action. Optional fields 
+    /// for City, State/Province, or Country that are either null or empty are ignored. These parameters must be entered as arguments in that order. 
     /// </summary>
-    public async Task<IEnumerable<LodgingModel>> LodgingByLocationAndOccupancy(string city, string state, string country, int occupancy)
+
+    public async Task<IEnumerable<LodgingModel>> LodgingByLocationAndOccupancy(int occupancy, params string[] location)
     {
+      var numParams = location.Length;
+
+      Expression<Func<LodgingModel, bool>> matchesAll = c =>
+        (numParams >= 1 ? string.IsNullOrEmpty(location[0]) || c.Location.Address.City.ToLower() == location[0].ToLower() : true) &&
+        (numParams >= 2 ? string.IsNullOrEmpty(location[1]) || c.Location.Address.StateProvince.ToLower() == location[1].ToLower() : true) &&
+        (numParams >= 3 ? string.IsNullOrEmpty(location[2]) || c.Location.Address.Country.ToLower() == location[2].ToLower() : true);
+
       var lodgingsByLocation = await _db
         .Include(r => r.Rentals)
         .Include(l => l.Location)
         .Include(a => a.Location.Address)
-        .Where(c => string.IsNullOrEmpty(city) || c.Location.Address.City.ToLower() == city.ToLower())
-        .Where(s => string.IsNullOrEmpty(state) || s.Location.Address.StateProvince.ToLower() == state.ToLower())
-        .Where(c => string.IsNullOrEmpty(country) || c.Location.Address.Country.ToLower() == country.ToLower())
+        .Where(matchesAll)
         .ToListAsync();
-
+      
       var filteredLodgings = new List<LodgingModel>();
 
       foreach (var item in lodgingsByLocation)
       {
         foreach (var rental in item.Rentals)
         {
-          if (rental.Status.Equals("available") 
-            && rental.Occupancy >= occupancy 
-            && !filteredLodgings.Contains(item))
+          if (rental.Status.Equals("available") && rental.Occupancy >= occupancy && !filteredLodgings.Contains(item))
           {
             filteredLodgings.Add(item);
           }

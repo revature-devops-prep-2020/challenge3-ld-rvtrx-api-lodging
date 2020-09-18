@@ -36,7 +36,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
             },
             new RentalModel() 
             {
-              Id = 101, Occupancy = 3, Status = "available" 
+              Id = 101, Occupancy = 2, Status = "booked" 
             }
           }
         }
@@ -61,7 +61,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
         {
           var lodgings = new UnitOfWork(ctx);
 
-          var actual = await lodgings.Lodging.LodgingByLocationAndOccupancy("auStin", "", null, 2);
+          var actual = await lodgings.Lodging.LodgingByLocationAndOccupancy(2, "auStin", "", null);
 
           Assert.NotEmpty(actual);
           Assert.True(actual.Count() == 1);
