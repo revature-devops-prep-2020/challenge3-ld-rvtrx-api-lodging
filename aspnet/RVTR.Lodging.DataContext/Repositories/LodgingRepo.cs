@@ -44,9 +44,9 @@ namespace RVTR.Lodging.DataContext.Repositories
       var numParams = location.Length;
 
       Expression<Func<LodgingModel, bool>> matchesAll = c =>
-        (numParams >= 1 ? string.IsNullOrEmpty(location[0]) || c.Location.Address.City.ToLower() == location[0].ToLower() : true) &&
-        (numParams >= 2 ? string.IsNullOrEmpty(location[1]) || c.Location.Address.StateProvince.ToLower() == location[1].ToLower() : true) &&
-        (numParams >= 3 ? string.IsNullOrEmpty(location[2]) || c.Location.Address.Country.ToLower() == location[2].ToLower() : true);
+        (!(numParams >= 1) || string.IsNullOrEmpty(location[0]) || c.Location.Address.City.ToLower() == location[0].ToLower()) &&
+        (!(numParams >= 2) || string.IsNullOrEmpty(location[1]) || c.Location.Address.StateProvince.ToLower() == location[1].ToLower()) &&
+        (!(numParams >= 3) || string.IsNullOrEmpty(location[2]) || c.Location.Address.Country.ToLower() == location[2].ToLower());
 
       var lodgingsByLocation = await _db
         .Include(r => r.Rentals)
