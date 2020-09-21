@@ -9,9 +9,22 @@
 
 RVTR Servicehub Lodging API
 
+## links
+
+zipkin: https://tracing.rvtr.net:9411/zipkin/
+sentry: https://sentry.io/organizations/rvtr
+prometheus: https://metrics.rvtr.net:9090/
+grafana: https://analytics.rvtr.net:3000/
+traefik: https://traefik.rvtr.net:9000/dashboard/#/
+swagger: https://api.rvtr.net/rest/lodging/index.html
+
 ## backlog
 
 <https://www.pivotaltracker.com/n/projects/2443483>
+
+## service link
+
+<https://api.rvtr.net/rest/lodging>
 
 ## license
 
