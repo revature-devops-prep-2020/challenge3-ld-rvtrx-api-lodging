@@ -8,16 +8,46 @@ namespace RVTR.Lodging.ObjectModel.Models
   /// </summary>
   public class LodgingModel : IValidatableObject
   {
+    /// <summary>
+    ///
+    /// </summary>
+    /// <value></value>
     public int Id { get; set; }
 
+    /// <summary>
+    ///
+    /// </summary>
+    /// <value></value>
+    public int LocationId { get; set; }
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <value></value>
     public LocationModel Location { get; set; }
 
+    /// <summary>
+    ///
+    /// </summary>
+    /// <value></value>
     public string Name { get; set; }
 
+    /// <summary>
+    ///
+    /// </summary>
+    /// <value></value>
     public int Bathrooms { get; set; }
 
+    /// <summary>
+    ///
+    /// </summary>
+    /// <value></value>
     public IEnumerable<RentalModel> Rentals { get; set; }
 
+    /// <summary>
+    ///
+    /// </summary>
+    /// <value></value>
     public IEnumerable<ReviewModel> Reviews { get; set; }
 
     /// <summary>

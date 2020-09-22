@@ -5,6 +5,9 @@ using Xunit;
 
 namespace RVTR.Lodging.UnitTesting.Tests
 {
+  /// <summary>
+  ///
+  /// </summary>
   public class AddressModelTest
   {
     public static readonly IEnumerable<object[]> _addresses = new List<object[]>
@@ -19,12 +22,14 @@ namespace RVTR.Lodging.UnitTesting.Tests
           PostalCode = "postalcode",
           StateProvince = "stateprovince",
           Street = "street",
-          LocationId = 0,
-          Location = null
         }
       }
     };
 
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="address"></param>
     [Theory]
     [MemberData(nameof(_addresses))]
     public void Test_Create_AddressModel(AddressModel address)
@@ -35,6 +40,10 @@ namespace RVTR.Lodging.UnitTesting.Tests
       Assert.True(actual);
     }
 
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="address"></param>
     [Theory]
     [MemberData(nameof(_addresses))]
     public void Test_Validate_AddressModel(AddressModel address)

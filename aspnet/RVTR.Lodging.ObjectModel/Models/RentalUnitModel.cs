@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 namespace RVTR.Lodging.ObjectModel.Models
 {
   /// <summary>
-  /// Represents the _Address_ model
+  ///
   /// </summary>
-  public class AddressModel : IValidatableObject
+  public class RentalUnitModel : IValidatableObject
   {
     /// <summary>
     ///
@@ -18,40 +18,34 @@ namespace RVTR.Lodging.ObjectModel.Models
     ///
     /// </summary>
     /// <value></value>
-    public string City { get; set; }
+    public int RentalId { get; set; }
 
     /// <summary>
     ///
     /// </summary>
     /// <value></value>
-    public string Country { get; set; }
+    public int Capacity { get; set; }
 
     /// <summary>
     ///
     /// </summary>
     /// <value></value>
-    public LocationModel Location { get; set; }
+    public string Name { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <value></value>
+    public RentalModel Rental { get; set; }
 
     /// <summary>
     ///
     /// </summary>
     /// <value></value>
-    public string PostalCode { get; set; }
+    public string Size { get; set; }
 
     /// <summary>
     ///
-    /// </summary>
-    /// <value></value>
-    public string StateProvince { get; set; }
-
-    /// <summary>
-    ///
-    /// </summary>
-    /// <value></value>
-    public string Street { get; set; }
-
-    /// <summary>
-    /// Represents the _Address_ `Validate` method
     /// </summary>
     /// <param name="validationContext"></param>
     /// <returns></returns>

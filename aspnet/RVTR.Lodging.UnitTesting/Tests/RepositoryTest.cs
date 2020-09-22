@@ -17,7 +17,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
     {
       new object[]
       {
-        new LodgingModel() { Id = 1 },
+        new LodgingModel() { Id = 1, LocationId = 1 },
         new RentalModel() { Id = 1 },
         new ReviewModel() { Id = 1 }
       }
@@ -266,7 +266,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
           var rentals = new Repository<RentalModel>(ctx);
           var expected = await ctx.Rentals.FirstAsync();
 
-          expected.Name = "name";
+          expected.LotNumber = "lot number";
           rentals.Update(expected);
           await ctx.SaveChangesAsync();
 

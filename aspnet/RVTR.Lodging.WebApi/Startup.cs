@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using RVTR.Lodging.DataContext;
 using RVTR.Lodging.DataContext.Repositories;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -43,7 +44,11 @@ namespace RVTR.Lodging.WebApi
         options.ReportApiVersions = true;
       });
 
-      services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+      services.AddControllers().AddNewtonsoftJson(options =>
+      {
+        options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+      });
+
       services.AddCors(options =>
       {
         options.AddPolicy("public", policy =>

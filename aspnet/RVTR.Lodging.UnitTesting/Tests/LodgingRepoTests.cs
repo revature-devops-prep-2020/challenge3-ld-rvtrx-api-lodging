@@ -21,22 +21,22 @@ namespace RVTR.Lodging.UnitTesting.Tests
         new LodgingModel()
         {
           Id = 5,
-          Location = new LocationModel() 
+          Location = new LocationModel()
           {
             Id = 100, Address = new AddressModel()
             {
               Id = 100, City = "Austin", StateProvince = "TX", Country = "USA"
             }
           },
-          Rentals = new List<RentalModel>() 
-          { 
-            new RentalModel() 
+          Rentals = new List<RentalModel>()
+          {
+            new RentalModel()
             {
-              Id = 100, Occupancy = 3, Status = "available" 
+              Id = 100, Status = "available", Unit = new RentalUnitModel() { Id = 100, Capacity = 4 }
             },
-            new RentalModel() 
+            new RentalModel()
             {
-              Id = 101, Occupancy = 2, Status = "booked" 
+              Id = 101, Status = "booked", Unit = new RentalUnitModel() { Id = 101, Capacity = 4 }
             }
           }
         }

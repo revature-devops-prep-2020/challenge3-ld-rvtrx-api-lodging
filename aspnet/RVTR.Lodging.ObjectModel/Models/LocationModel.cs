@@ -8,12 +8,34 @@ namespace RVTR.Lodging.ObjectModel.Models
   /// </summary>
   public class LocationModel : IValidatableObject
   {
+    /// <summary>
+    ///
+    /// </summary>
+    /// <value></value>
     public int Id { get; set; }
 
+    /// <summary>
+    ///
+    /// </summary>
+    /// <value></value>
+    public int AddressId { get; set; }
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <value></value>
     public AddressModel Address { get; set; }
 
+    /// <summary>
+    ///
+    /// </summary>
+    /// <value></value>
     public string Latitude { get; set; }
 
+    /// <summary>
+    ///
+    /// </summary>
+    /// <value></value>
     public string Longitude { get; set; }
 
     /// <summary>

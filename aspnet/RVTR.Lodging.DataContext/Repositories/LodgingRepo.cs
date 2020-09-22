@@ -19,24 +19,22 @@ namespace RVTR.Lodging.DataContext.Repositories
     /// This Method will select all lodgings, including their Rentals, Location, and Locations Address
     /// </summary>
     public override async Task<IEnumerable<LodgingModel>> SelectAsync() => await _db
-      .Include(r => r.Rentals)
-      .Include(l => l.Location)
-      .ThenInclude(a => a.Address)
+      .Include(r => r.Rentals).ThenInclude(ru => ru.Unit)
+      .Include(l => l.Location).ThenInclude(a => a.Address)
       .ToListAsync();
 
     /// <summary>
     /// This method will get a Lodging with the given Id and will include its Location and the locations address
     /// </summary>
     public override async Task<LodgingModel> SelectAsync(int id) => await _db
-      .Include(r => r.Rentals)
-      .Include(l => l.Location)
-      .ThenInclude(a => a.Address)
+      .Include(r => r.Rentals).ThenInclude(ru => ru.Unit)
+      .Include(l => l.Location).ThenInclude(a => a.Address)
       .FirstOrDefaultAsync(x => x.Id == id);
 
     /// <summary>
-    /// This method will return all the lodgings in the given location whose rental status is "available" and where occupancy is not less than the 
-    /// desired occupancy. It will include the Rentals, Location, and Address tables in its non-case-sensitive filter action. Optional fields 
-    /// for City, State/Province, or Country that are either null or empty are ignored. These parameters must be entered as arguments in that order. 
+    /// This method will return all the lodgings in the given location whose rental status is "available" and where occupancy is not less than the
+    /// desired occupancy. It will include the Rentals, Location, and Address tables in its non-case-sensitive filter action. Optional fields
+    /// for City, State/Province, or Country that are either null or empty are ignored. These parameters must be entered as arguments in that order.
     /// </summary>
 
     public async Task<IEnumerable<LodgingModel>> LodgingByLocationAndOccupancy(int occupancy, params string[] location)
@@ -49,19 +47,19 @@ namespace RVTR.Lodging.DataContext.Repositories
         (numParams < 3 || string.IsNullOrEmpty(location[2]) || c.Location.Address.Country.ToLower() == location[2].ToLower());
 
       var lodgingsByLocation = await _db
-        .Include(r => r.Rentals)
-        .Include(l => l.Location)
-        .Include(a => a.Location.Address)
+        .Include(r => r.Rentals).ThenInclude(ru => ru.Unit)
+        .Include(l => l.Location).ThenInclude(la => la.Address)
+        // .Include(a => a.Location.Address)
         .Where(matchesAll)
         .ToListAsync();
-      
+
       var filteredLodgings = new List<LodgingModel>();
 
       foreach (var item in lodgingsByLocation)
       {
         foreach (var rental in item.Rentals)
         {
-          if (rental.Status.Equals("available") && rental.Occupancy >= occupancy && !filteredLodgings.Contains(item))
+          if (rental.Status.Equals("available") && rental.Unit.Capacity >= occupancy && !filteredLodgings.Contains(item))
           {
             filteredLodgings.Add(item);
           }

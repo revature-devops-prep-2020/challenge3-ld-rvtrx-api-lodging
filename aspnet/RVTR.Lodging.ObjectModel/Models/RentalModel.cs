@@ -10,11 +10,9 @@ namespace RVTR.Lodging.ObjectModel.Models
   {
     public int Id { get; set; }
 
-    public string Name { get; set; }
+    public string LotNumber { get; set; }
 
-    public int Occupancy { get; set; }
-
-    public string Type { get; set; }
+    public RentalUnitModel Unit { get; set; }
 
     public string Status { get; set; }
 
