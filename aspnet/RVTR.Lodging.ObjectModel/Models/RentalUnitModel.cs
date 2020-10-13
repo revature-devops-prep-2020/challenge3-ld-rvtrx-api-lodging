@@ -33,7 +33,7 @@ namespace RVTR.Lodging.ObjectModel.Models
     public string Name { get; set; }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <value></value>
     public RentalModel Rental { get; set; }
