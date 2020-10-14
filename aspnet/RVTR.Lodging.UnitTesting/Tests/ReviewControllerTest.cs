@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using RVTR.Lodging.DataContext;
 using RVTR.Lodging.DataContext.Repositories;
+using RVTR.Lodging.ObjectModel.Interfaces;
 using RVTR.Lodging.ObjectModel.Models;
 using RVTR.Lodging.WebApi.Controllers;
 using Xunit;
@@ -15,25 +16,22 @@ namespace RVTR.Lodging.UnitTesting.Tests
 {
   public class ReviewControllerTest
   {
-    private static readonly SqliteConnection _connection = new SqliteConnection("Data Source=:memory:");
-    private static readonly DbContextOptions<LodgingContext> _options = new DbContextOptionsBuilder<LodgingContext>().UseSqlite(_connection).Options;
     private readonly ReviewController _controller;
     private readonly ILogger<ReviewController> _logger;
-    private readonly UnitOfWork _unitOfWork;
+    private readonly IUnitOfWork _unitOfWork;
 
     public ReviewControllerTest()
     {
-      var contextMock = new Mock<LodgingContext>(_options);
       var loggerMock = new Mock<ILogger<ReviewController>>();
-      var repositoryMock = new Mock<Repository<ReviewModel>>(new LodgingContext(_options));
-      var unitOfWorkMock = new Mock<UnitOfWork>(contextMock.Object);
-
+      var repositoryMock = new Mock<IRepository<ReviewModel>>();
+      var unitOfWorkMock = new Mock<IUnitOfWork>();
+      
       repositoryMock.Setup(m => m.DeleteAsync(0)).Throws(new Exception());
-      repositoryMock.Setup(m => m.DeleteAsync(1)).Returns(Task.FromResult(1));
-      repositoryMock.Setup(m => m.InsertAsync(It.IsAny<ReviewModel>())).Returns(Task.FromResult<ReviewModel>(null));
-      repositoryMock.Setup(m => m.SelectAsync()).Returns(Task.FromResult<IEnumerable<ReviewModel>>(null));
+      repositoryMock.Setup(m => m.DeleteAsync(1)).Returns(Task.CompletedTask);
+      repositoryMock.Setup(m => m.InsertAsync(It.IsAny<ReviewModel>())).Returns(Task.CompletedTask);
+      repositoryMock.Setup(m => m.SelectAsync()).ReturnsAsync((IEnumerable<ReviewModel>)null);
       repositoryMock.Setup(m => m.SelectAsync(0)).Throws(new Exception());
-      repositoryMock.Setup(m => m.SelectAsync(1)).Returns(Task.FromResult<ReviewModel>(null));
+      repositoryMock.Setup(m => m.SelectAsync(1)).ReturnsAsync((ReviewModel)null);
       repositoryMock.Setup(m => m.Update(It.IsAny<ReviewModel>()));
       unitOfWorkMock.Setup(m => m.Review).Returns(repositoryMock.Object);
 

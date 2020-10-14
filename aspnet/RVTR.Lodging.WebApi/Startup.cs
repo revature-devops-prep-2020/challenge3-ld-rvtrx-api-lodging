@@ -9,6 +9,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RVTR.Lodging.DataContext;
 using RVTR.Lodging.DataContext.Repositories;
+using RVTR.Lodging.ObjectModel.Interfaces;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using zipkin4net.Middleware;
 
@@ -63,10 +64,10 @@ namespace RVTR.Lodging.WebApi
         {
           options.EnableRetryOnFailure(3);
         });
-      });
+      }, ServiceLifetime.Transient);
 
       services.AddScoped<ClientZipkinMiddleware>();
-      services.AddScoped<UnitOfWork>();
+      services.AddTransient<IUnitOfWork, UnitOfWork>();
       services.AddSwaggerGen();
       services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ClientSwaggerOptions>();
       services.AddVersionedApiExplorer(options =>

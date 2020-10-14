@@ -8,11 +8,11 @@ namespace RVTR.Lodging.UnitTesting.Tests
 {
   public class ReviewModelTest
   {
-    public static readonly IEnumerable<object[]> _reviews = new List<object[]>
+    public static readonly IEnumerable<object[]> Reviews = new List<object[]>
     {
       new object[]
       {
-        new ReviewModel()
+        new ReviewModel
         {
           Id = 0,
           AccountId = 0,
@@ -26,7 +26,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
     };
 
     [Theory]
-    [MemberData(nameof(_reviews))]
+    [MemberData(nameof(Reviews))]
     public void Test_Create_ReviewModel(ReviewModel review)
     {
       var validationContext = new ValidationContext(review);
@@ -36,7 +36,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
     }
 
     [Theory]
-    [MemberData(nameof(_reviews))]
+    [MemberData(nameof(Reviews))]
     public void Test_Validate_ReviewModel(ReviewModel review)
     {
       var validationContext = new ValidationContext(review);

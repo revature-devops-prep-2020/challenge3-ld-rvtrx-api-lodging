@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using RVTR.Lodging.DataContext.Repositories;
+using RVTR.Lodging.ObjectModel.Interfaces;
 using RVTR.Lodging.ObjectModel.Models;
 
 namespace RVTR.Lodging.WebApi.Controllers
@@ -19,14 +19,14 @@ namespace RVTR.Lodging.WebApi.Controllers
   public class LodgingController : ControllerBase
   {
     private readonly ILogger<LodgingController> _logger;
-    private readonly UnitOfWork _unitOfWork;
+    private readonly IUnitOfWork _unitOfWork;
 
     /// <summary>
     /// Constructor for the LodgingController sets up logger and unitOfWork dependencies
     /// </summary>
     /// <param name="logger">The Logger</param>
     /// <param name="unitOfWork">The UnitOfWork</param>
-    public LodgingController(ILogger<LodgingController> logger, UnitOfWork unitOfWork)
+    public LodgingController(ILogger<LodgingController> logger, IUnitOfWork unitOfWork)
     {
       _logger = logger;
       _unitOfWork = unitOfWork;
@@ -75,7 +75,7 @@ namespace RVTR.Lodging.WebApi.Controllers
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<LodgingModel>), StatusCodes.Status200OK)]
     [Route("available")]
-    public async Task<IActionResult> getLodgingsByLocationAndOccupancy(string city, string state, string country, int occupancy)
+    public async Task<IActionResult> GetLodgingsByLocationAndOccupancy(string city, string state, string country, int occupancy)
     {
       return Ok(await _unitOfWork.Lodging.LodgingByLocationAndOccupancy(occupancy, city, state, country));
     }
