@@ -30,4 +30,4 @@ swagger: https://api.rvtr.net/rest/lodging/index.html
 
 The project is made available under the terms of the [MIT License][license_mit].
 
-[license_mit]: https://github.com/rvtr/rvtr-svc-lodging/blob/master/LICENSE 'mit license'
+[license_mit]: https://github.com/rvtr/rvtr-svc-lodging/blob/main/LICENSE 'mit license'
