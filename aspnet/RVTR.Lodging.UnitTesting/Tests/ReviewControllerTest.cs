@@ -1,12 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.Data.Sqlite;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Moq;
-using RVTR.Lodging.DataContext;
-using RVTR.Lodging.DataContext.Repositories;
 using RVTR.Lodging.ObjectModel.Interfaces;
 using RVTR.Lodging.ObjectModel.Models;
 using RVTR.Lodging.WebApi.Controllers;
@@ -25,7 +21,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
       var loggerMock = new Mock<ILogger<ReviewController>>();
       var repositoryMock = new Mock<IRepository<ReviewModel>>();
       var unitOfWorkMock = new Mock<IUnitOfWork>();
-      
+
       repositoryMock.Setup(m => m.DeleteAsync(0)).Throws(new Exception());
       repositoryMock.Setup(m => m.DeleteAsync(1)).Returns(Task.CompletedTask);
       repositoryMock.Setup(m => m.InsertAsync(It.IsAny<ReviewModel>())).Returns(Task.CompletedTask);
