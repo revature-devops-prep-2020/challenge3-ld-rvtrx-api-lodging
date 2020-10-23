@@ -2,8 +2,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using RVTR.Lodging.DataContext.Repositories;
-using RVTR.Lodging.ObjectModel.Models;
+using RVTR.Lodging.ObjectModel.Interfaces;
 
 namespace RVTR.Lodging.WebApi.Controllers
 {
@@ -17,14 +16,14 @@ namespace RVTR.Lodging.WebApi.Controllers
   public class ImagesController : ControllerBase
   {
     private readonly ILogger<ImagesController> _logger;
-    private readonly UnitOfWork _unitOfWork;
+    private readonly IUnitOfWork _unitOfWork;
 
     /// <summary>
     ///
     /// </summary>
     /// <param name="logger"></param>
     /// <param name="unitOfWork"></param>
-    public ImagesController(ILogger<ImagesController> logger, UnitOfWork unitOfWork)
+    public ImagesController(ILogger<ImagesController> logger, IUnitOfWork unitOfWork)
     {
       _logger = logger;
       _unitOfWork = unitOfWork;

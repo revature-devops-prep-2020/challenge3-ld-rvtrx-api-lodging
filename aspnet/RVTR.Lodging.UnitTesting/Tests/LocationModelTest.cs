@@ -7,11 +7,11 @@ namespace RVTR.Lodging.UnitTesting.Tests
 {
   public class LocationModelTest
   {
-    public static readonly IEnumerable<object[]> _locations = new List<object[]>
+    public static readonly IEnumerable<object[]> Locations = new List<object[]>
     {
       new object[]
       {
-        new LocationModel()
+        new LocationModel
         {
           Id = 0,
           Address = new AddressModel(),
@@ -22,7 +22,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
     };
 
     [Theory]
-    [MemberData(nameof(_locations))]
+    [MemberData(nameof(Locations))]
     public void Test_Create_LocationModel(LocationModel location)
     {
       var validationContext = new ValidationContext(location);
@@ -32,7 +32,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
     }
 
     [Theory]
-    [MemberData(nameof(_locations))]
+    [MemberData(nameof(Locations))]
     public void Test_Validate_LocationModel(LocationModel location)
     {
       var validationContext = new ValidationContext(location);

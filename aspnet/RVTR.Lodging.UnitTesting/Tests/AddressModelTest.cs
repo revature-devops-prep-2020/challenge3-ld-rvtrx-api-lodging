@@ -10,11 +10,11 @@ namespace RVTR.Lodging.UnitTesting.Tests
   /// </summary>
   public class AddressModelTest
   {
-    public static readonly IEnumerable<object[]> _addresses = new List<object[]>
+    public static readonly IEnumerable<object[]> Addresses = new List<object[]>
     {
       new object[]
       {
-        new AddressModel()
+        new AddressModel
         {
           Id = 0,
           City = "city",
@@ -31,7 +31,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
     /// </summary>
     /// <param name="address"></param>
     [Theory]
-    [MemberData(nameof(_addresses))]
+    [MemberData(nameof(Addresses))]
     public void Test_Create_AddressModel(AddressModel address)
     {
       var validationContext = new ValidationContext(address);
@@ -45,7 +45,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
     /// </summary>
     /// <param name="address"></param>
     [Theory]
-    [MemberData(nameof(_addresses))]
+    [MemberData(nameof(Addresses))]
     public void Test_Validate_AddressModel(AddressModel address)
     {
       var validationContext = new ValidationContext(address);
