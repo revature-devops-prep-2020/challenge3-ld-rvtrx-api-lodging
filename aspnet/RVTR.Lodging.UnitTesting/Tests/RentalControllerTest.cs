@@ -28,6 +28,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
       repositoryMock.Setup(m => m.SelectAsync()).ReturnsAsync((IEnumerable<RentalModel>)null);
       repositoryMock.Setup(m => m.SelectAsync(0)).Throws(new Exception());
       repositoryMock.Setup(m => m.SelectAsync(1)).ReturnsAsync((RentalModel)null);
+      repositoryMock.Setup(m => m.SelectAsync(2)).ReturnsAsync(new RentalModel() { Id = 2, LotNumber = "2", Status = "Available", Price = 1.00 });
       repositoryMock.Setup(m => m.Update(It.IsAny<RentalModel>()));
       unitOfWorkMock.Setup(m => m.Rental).Returns(repositoryMock.Object);
 
@@ -69,9 +70,13 @@ namespace RVTR.Lodging.UnitTesting.Tests
     [Fact]
     public async void Test_Controller_Put()
     {
-      var resultPass = await _controller.Put(new RentalModel());
+      RentalModel rentalmodel = await _unitOfWork.Rental.SelectAsync(2);
+
+      var resultPass = await _controller.Put(rentalmodel);
+      var resultFail = await _controller.Put(null);
 
       Assert.NotNull(resultPass);
+      Assert.NotNull(resultFail);
     }
   }
 }

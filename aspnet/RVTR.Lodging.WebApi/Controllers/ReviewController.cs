@@ -113,6 +113,7 @@ namespace RVTR.Lodging.WebApi.Controllers
       try
       {
         _logger.LogInformation($"Updating a review @ {review}...");
+        var x = await _unitOfWork.Review.SelectAsync(review.Id);
         _unitOfWork.Review.Update(review);
         await _unitOfWork.CommitAsync();
         _logger.LogInformation($"Successfully updated a review @ {review}.");
