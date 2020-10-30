@@ -28,6 +28,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
       repositoryMock.Setup(m => m.SelectAsync()).ReturnsAsync((IEnumerable<ReviewModel>)null);
       repositoryMock.Setup(m => m.SelectAsync(0)).Throws(new Exception());
       repositoryMock.Setup(m => m.SelectAsync(1)).ReturnsAsync((ReviewModel)null);
+      repositoryMock.Setup(m => m.SelectAsync(2)).ReturnsAsync(new ReviewModel() { Id = 2, Comment = "Random", DateCreated = DateTime.Now, Rating = 1 });
       repositoryMock.Setup(m => m.Update(It.IsAny<ReviewModel>()));
       unitOfWorkMock.Setup(m => m.Review).Returns(repositoryMock.Object);
 
@@ -69,9 +70,13 @@ namespace RVTR.Lodging.UnitTesting.Tests
     [Fact]
     public async void Test_Controller_Put()
     {
-      var resultPass = await _controller.Put(new ReviewModel());
+      ReviewModel reviewmodel = await _unitOfWork.Review.SelectAsync(2);
+
+      var resultPass = await _controller.Put(reviewmodel);
+      var resultFail = await _controller.Put(null);
 
       Assert.NotNull(resultPass);
+      Assert.NotNull(resultFail);
     }
   }
 }
