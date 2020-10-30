@@ -15,7 +15,7 @@ namespace RVTR.Lodging.DataContext.Repositories
     { }
 
     /// <summary>
-    /// This Method will select all lodgings, including their Rentals, Location, and Locations Address
+    /// This Method will select all lodgings, including their Rentals, Location, Reviews, and Locations Address
     /// </summary>
     public override async Task<IEnumerable<LodgingModel>> SelectAsync() => await Db
       .Include(r => r.Rentals)
@@ -26,7 +26,7 @@ namespace RVTR.Lodging.DataContext.Repositories
       .ToListAsync();
 
     /// <summary>
-    /// This method will get a Lodging with the given Id and will include its Location and the locations address
+    /// This method will get a Lodging with the given Id and will include its Location, Reviews, and the locations address
     /// </summary>
     public override async Task<LodgingModel> SelectAsync(int id) => await Db
       .Include(r => r.Rentals)
@@ -65,7 +65,7 @@ namespace RVTR.Lodging.DataContext.Repositories
       {
         foreach (var rental in item.Rentals)
         {
-          if (rental.Status.ToLower().Equals("available") && rental.Unit.Capacity >= occupancy && !filteredLodgings.Contains(item))
+          if (String.Equals(rental.Status, "available", StringComparison.CurrentCultureIgnoreCase) && rental.Unit.Capacity >= occupancy && !filteredLodgings.Contains(item))
           {
             filteredLodgings.Add(item);
           }

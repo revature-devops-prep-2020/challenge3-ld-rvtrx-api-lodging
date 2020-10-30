@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -11,8 +12,8 @@ namespace RVTR.Lodging.ObjectModel.Models
     public int Id { get; set; }
 
     [Required(ErrorMessage = "Lot number can't be null.")]
-    [MaxLength(5, ErrorMessage = "Lot number must be 5 digits maximum")]
-    [RegularExpression(@"^[0-9]?[0-9]?[0-9]?[0-9]?[0-9]$")]
+    [MaxLength(10, ErrorMessage = "Lot number must be 10 digits maximum")]
+    [RegularExpression(@"^\d+([a-zA-Z]+)?$", ErrorMessage = "Lot number must be either a number or a number plus a series of letters.")]
     public string LotNumber { get; set; }
 
     public RentalUnitModel Unit { get; set; }
@@ -21,11 +22,10 @@ namespace RVTR.Lodging.ObjectModel.Models
     [RegularExpression(@"^([Bb]ooked|[Aa]vailable)$", ErrorMessage = "Status must be either 'Booked' or 'Available'")]
     public string Status { get; set; }
 
-    [Required(ErrorMessage = "Price can't be null.")]
-    [RegularExpression(@"^\d+(\.\d\d)?$", ErrorMessage = "Price must be in the form 00.00")]
+    [Range(0, Double.PositiveInfinity, ErrorMessage = "Price must be positive.")]
     public double Price { get; set; }
 
-    [RegularExpression(@"^\d+(\.\d\d)?$", ErrorMessage = "Price must be in the form 00.00")]
+    [Range(0, Double.PositiveInfinity, ErrorMessage = "Price must be positive.")]
     public double? DiscountedPrice { get; set; }
 
     public int? LodgingId { get; set; }

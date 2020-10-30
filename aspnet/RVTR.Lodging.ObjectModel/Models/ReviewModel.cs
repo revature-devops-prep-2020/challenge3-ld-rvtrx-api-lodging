@@ -20,7 +20,6 @@ namespace RVTR.Lodging.ObjectModel.Models
     [Required(ErrorMessage = "Timestamp can't be null.")]
     public DateTime DateCreated { get; set; }
 
-    [Required(ErrorMessage = "Rating can't be null")]
     [Range(1, 10, ErrorMessage = "Rating must be between 1 and 10")]
     public int Rating { get; set; }
 

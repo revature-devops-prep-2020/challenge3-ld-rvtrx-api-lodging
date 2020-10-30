@@ -21,7 +21,7 @@ namespace RVTR.Lodging.ObjectModel.Models
     [Required(ErrorMessage = "City is required")]
     [MinLength(1, ErrorMessage = "Name must be at least one character.")]
     [MaxLength(20, ErrorMessage = "Name must be fewer than 20 characters.")]
-    [RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$", ErrorMessage = "Name must start with a capital letter and only use letters.")]
+    [RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$", ErrorMessage = "Name must start with a capital letter and only uses letters.")]
     public string City { get; set; }
 
     /// <summary>
@@ -29,7 +29,7 @@ namespace RVTR.Lodging.ObjectModel.Models
     /// </summary>
     /// <value></value>
     [Required(ErrorMessage = "Country is required")]
-    [RegularExpression(@"(^USA$)|(^US$)")]
+    [RegularExpression(@"(^USA$)|(^US$)", ErrorMessage = "Country must be 'US' or 'USA'")]
     public string Country { get; set; }
 
     /// <summary>
@@ -44,7 +44,7 @@ namespace RVTR.Lodging.ObjectModel.Models
     /// <value></value>
     [Required(ErrorMessage = "Postal code is required")]
     [StringLength(5, ErrorMessage = "Postal code must be 5 numbers long")]
-    [RegularExpression(@"[0-9]{5}", ErrorMessage = "Postal code must be a number")]
+    [RegularExpression(@"\d{5}", ErrorMessage = "Postal code must be a number")]
     public string PostalCode { get; set; }
 
     /// <summary>
@@ -62,7 +62,7 @@ namespace RVTR.Lodging.ObjectModel.Models
     /// <value></value>
     [Required(ErrorMessage = "Street is required")]
     [MinLength(1)]
-    [MaxLength(50, ErrorMessage = "Street name is too long.")]
+    [MaxLength(200, ErrorMessage = "Street name is too long.")]
     public string Street { get; set; }
 
     /// <summary>

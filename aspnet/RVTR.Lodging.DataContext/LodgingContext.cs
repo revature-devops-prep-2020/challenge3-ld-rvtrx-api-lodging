@@ -94,10 +94,10 @@ namespace RVTR.Lodging.DataContext
 
       modelBuilder.Entity<LocationModel>().HasData(new List<LocationModel>()
       {
-        new LocationModel() { Id = 1, AddressId = 1, Latitude = "38.0755N", Longitude = "77.9889W" },
-        new LocationModel() { Id = 2, AddressId = 2, Latitude = "38.0755N", Longitude = "77.9889W" },
-        new LocationModel() { Id = 3, AddressId = 3, Latitude = "38.0755N", Longitude = "77.9889W" },
-        new LocationModel() { Id = 4, AddressId = 4, Latitude = "38.0755N", Longitude = "77.9889W" },
+        new LocationModel() { Id = 1, AddressId = 1, Latitude = "38.0755", Longitude = "77.9889" },
+        new LocationModel() { Id = 2, AddressId = 2, Latitude = "38.0755", Longitude = "77.9889" },
+        new LocationModel() { Id = 3, AddressId = 3, Latitude = "38.0755", Longitude = "77.9889" },
+        new LocationModel() { Id = 4, AddressId = 4, Latitude = "38.0755", Longitude = "77.9889" },
       });
 
       modelBuilder.Entity<AddressModel>().HasData(new List<AddressModel>()

@@ -18,7 +18,6 @@ namespace RVTR.Lodging.ObjectModel.Models
     /// The capacity of the rental unit
     /// </summary>
     /// <value></value>
-    [Required(ErrorMessage = "Capacity must exist.")]
     [Range(1, 1000, ErrorMessage = "Capacity must be between 1 and 1000")]
     public int Capacity { get; set; }
 
@@ -43,11 +42,11 @@ namespace RVTR.Lodging.ObjectModel.Models
     public RentalModel Rental { get; set; }
 
     /// <summary>
-    /// the size of the rental unit
+    /// the size of the rental unit (e.g. 5 x 5, 5x5, 5ft x 5ft, 5 yards x 5 yards etc.)
     /// </summary>
     /// <value></value>
     [Required(ErrorMessage = "Size must exist")]
-    [RegularExpression(@"^\d+x\d+$", ErrorMessage = "Size must be in the form '10x10'")]
+    [RegularExpression(@"^\d+ ?([Ff]t|[Yy]ards|[Mm]eters|[Mm]) ?x ?\d+ ?([Ff]t|[Yy]ards|[Mm]eters|[Mm])$", ErrorMessage = "Size must be in the form '10 [unit?] x 10 [unit?]'")]
     public string Size { get; set; }
 
     /// <summary>

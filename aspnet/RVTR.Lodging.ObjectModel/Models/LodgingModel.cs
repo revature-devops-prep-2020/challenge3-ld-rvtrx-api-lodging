@@ -9,7 +9,7 @@ namespace RVTR.Lodging.ObjectModel.Models
   public class LodgingModel : IValidatableObject
   {
     /// <summary>
-    /// id of the lodging
+    /// id of the lodging model in the db
     /// </summary>
     /// <value></value>
     public int Id { get; set; }
@@ -31,7 +31,7 @@ namespace RVTR.Lodging.ObjectModel.Models
     /// </summary>
     /// <value></value>
     [Required(ErrorMessage = "Name is required")]
-    [MaxLength(20, ErrorMessage = "Max length is 20 characters")]
+    [MaxLength(100, ErrorMessage = "Max length is 100 characters")]
     public string Name { get; set; }
 
     /// <summary>
@@ -39,7 +39,7 @@ namespace RVTR.Lodging.ObjectModel.Models
     /// </summary>
     /// <value></value>
     [Required(ErrorMessage = "Number of bathrooms is required")]
-    [Range(1, 50, ErrorMessage = "Must have between 1 and 50 bathrooms")]
+    [Range(1, 100, ErrorMessage = "Must have between 1 and 100 bathrooms")]
     public int Bathrooms { get; set; }
 
     /// <summary>
