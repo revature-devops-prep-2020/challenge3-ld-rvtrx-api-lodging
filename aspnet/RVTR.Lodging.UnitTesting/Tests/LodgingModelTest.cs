@@ -15,8 +15,8 @@ namespace RVTR.Lodging.UnitTesting.Tests
         {
           Id = 0,
           Location = new LocationModel(),
-          Name = "name",
-          Bathrooms = 0,
+          Name = "Name",
+          Bathrooms = 1,
           Rentals = new List<RentalModel>(),
           Reviews = new List<ReviewModel>()
         }

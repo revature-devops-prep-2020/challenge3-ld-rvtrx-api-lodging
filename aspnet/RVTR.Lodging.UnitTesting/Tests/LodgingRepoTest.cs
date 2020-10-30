@@ -16,22 +16,25 @@ namespace RVTR.Lodging.UnitTesting.Tests
         new LodgingModel
         {
           Id = 5,
+          Name = "Lodging",
           Location = new LocationModel
           {
             Id = 100, Address = new AddressModel
             {
-              Id = 100, City = "Austin", StateProvince = "TX", Country = "USA"
-            }
+              Id = 100, City = "Austin", StateProvince = "TX", Country = "USA", PostalCode = "11111", Street = "Street"
+            },
+            Longitude = "1.00N",
+            Latitude = "1.00W"
           },
           Rentals = new List<RentalModel>
           {
             new RentalModel()
             {
-              Id = 100, Status = "available", Unit = new RentalUnitModel { Id = 100, Capacity = 4 }
+              Id = 100, LotNumber = "1", Status = "Available", Unit = new RentalUnitModel { Name = "Unit1", Size = "5x5", Id = 100, Capacity = 4 }
             },
             new RentalModel()
             {
-              Id = 101, Status = "booked", Unit = new RentalUnitModel { Id = 101, Capacity = 4 }
+              Id = 101, LotNumber = "2", Status = "Booked", Unit = new RentalUnitModel { Name = "Unit2", Size = "5x5", Id = 101, Capacity = 4 }
             }
           }
         }
@@ -52,7 +55,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
       {
         var lodgings = new LodgingRepo(ctx);
 
-        var actual = await lodgings.LodgingByLocationAndOccupancy(2, "auStin", "", null);
+        var actual = await lodgings.LodgingByLocationAndOccupancy(2, "Austin");
 
         Assert.NotEmpty(actual);
         Assert.True(actual.Count() == 1);

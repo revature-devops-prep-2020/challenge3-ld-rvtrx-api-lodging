@@ -63,7 +63,7 @@ namespace RVTR.Lodging.DataContext.Repositories
       {
         foreach (var rental in item.Rentals)
         {
-          if (rental.Status.Equals("available") && rental.Unit.Capacity >= occupancy && !filteredLodgings.Contains(item))
+          if (rental.Status.ToLower().Equals("available") && rental.Unit.Capacity >= occupancy && !filteredLodgings.Contains(item))
           {
             filteredLodgings.Add(item);
           }

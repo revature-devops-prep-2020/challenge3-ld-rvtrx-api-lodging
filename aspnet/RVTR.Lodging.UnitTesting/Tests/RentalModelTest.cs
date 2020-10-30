@@ -14,10 +14,11 @@ namespace RVTR.Lodging.UnitTesting.Tests
         new RentalModel
         {
           Id = 0,
-          Status = "status",
+          Status = "Available",
           Price = 0.0,
           DiscountedPrice = 0.0,
           LodgingId = 0,
+          LotNumber = "1",
           Lodging = null
         }
       }
