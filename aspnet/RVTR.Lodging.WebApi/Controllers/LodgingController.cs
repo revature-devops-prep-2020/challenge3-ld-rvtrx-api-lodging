@@ -40,6 +40,7 @@ namespace RVTR.Lodging.WebApi.Controllers
     [ProducesResponseType(typeof(IEnumerable<LodgingModel>), StatusCodes.Status200OK)]
     public async Task<IActionResult> Get()
     {
+      _logger.LogInformation($"Getting all lodgings...");
       return Ok(await _unitOfWork.Lodging.SelectAsync());
     }
 
@@ -53,13 +54,16 @@ namespace RVTR.Lodging.WebApi.Controllers
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Get(int id)
     {
+      _logger.LogInformation($"Getting a lodging @ id = {id}...");
       var lodging = await _unitOfWork.Lodging.SelectAsync(id);
       if (lodging != null)
       {
+        _logger.LogInformation($"Successfully found a lodging @ id = {id}.");
         return Ok(lodging);
       }
       else
       {
+        _logger.LogInformation($"Could not find a lodging @ id = {id}.");
         return NotFound(id);
       }
     }
@@ -77,6 +81,7 @@ namespace RVTR.Lodging.WebApi.Controllers
     [Route("available")]
     public async Task<IActionResult> GetLodgingsByLocationAndOccupancy(string city, string state, string country, int occupancy)
     {
+      _logger.LogInformation($"Getting all available lodgings matching City: {city}, State: {state}, Country: {country}, Occupancy: {occupancy}...");
       return Ok(await _unitOfWork.Lodging.LodgingByLocationAndOccupancy(occupancy, city, state, country));
     }
   }

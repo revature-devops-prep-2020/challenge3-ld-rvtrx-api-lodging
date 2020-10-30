@@ -7,7 +7,7 @@ using RVTR.Lodging.ObjectModel.Interfaces;
 namespace RVTR.Lodging.WebApi.Controllers
 {
   /// <summary>
-  ///
+  /// Images Controller
   /// </summary>
   [ApiController]
   [ApiVersion("0.0")]
@@ -19,7 +19,7 @@ namespace RVTR.Lodging.WebApi.Controllers
     private readonly IUnitOfWork _unitOfWork;
 
     /// <summary>
-    ///
+    /// Constructor of the images controller
     /// </summary>
     /// <param name="logger"></param>
     /// <param name="unitOfWork"></param>
@@ -30,13 +30,14 @@ namespace RVTR.Lodging.WebApi.Controllers
     }
 
     /// <summary>
-    ///
+    /// Action method for getting images by image id
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)
     {
+      _logger.LogInformation($"Getting images @ id = {id}...");
       return Ok(await Task.FromResult<string[]>(new string[] { "http://placecorgi.com/1280/960", "http://placecorgi.com/1280/960", "http://placecorgi.com/1280/960", "http://placecorgi.com/1280/960", "http://placecorgi.com/1280/960", "http://placecorgi.com/1280/960", "http://placecorgi.com/1280/960" }));
     }
   }
