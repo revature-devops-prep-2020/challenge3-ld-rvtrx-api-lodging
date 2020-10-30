@@ -22,6 +22,7 @@ namespace RVTR.Lodging.DataContext.Repositories
         .ThenInclude(ru => ru.Unit)
       .Include(l => l.Location)
         .ThenInclude(a => a.Address)
+      .Include(r => r.Reviews)
       .ToListAsync();
 
     /// <summary>
@@ -32,6 +33,7 @@ namespace RVTR.Lodging.DataContext.Repositories
         .ThenInclude(ru => ru.Unit)
       .Include(l => l.Location)
         .ThenInclude(a => a.Address)
+      .Include(r => r.Reviews)
       .FirstOrDefaultAsync(x => x.Id == id);
 
     /// <summary>
