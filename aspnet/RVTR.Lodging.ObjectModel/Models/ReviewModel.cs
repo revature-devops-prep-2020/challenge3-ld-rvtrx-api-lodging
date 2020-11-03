@@ -13,10 +13,14 @@ namespace RVTR.Lodging.ObjectModel.Models
 
     public int AccountId { get; set; }
 
+    [Required(ErrorMessage = "Must have a comment.")]
+    [MaxLength(1000, ErrorMessage = "Comment must be fewer than 1000 characters long")]
     public string Comment { get; set; }
 
+    [Required(ErrorMessage = "Timestamp can't be null.")]
     public DateTime DateCreated { get; set; }
 
+    [Range(1, 10, ErrorMessage = "Rating must be between 1 and 10")]
     public int Rating { get; set; }
 
     public int? LodgingId { get; set; }

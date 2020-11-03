@@ -5,6 +5,8 @@ using RVTR.Lodging.DataContext;
 using RVTR.Lodging.DataContext.Repositories;
 using RVTR.Lodging.ObjectModel.Models;
 using Xunit;
+using System.Collections.Generic;
+using System;
 
 namespace RVTR.Lodging.UnitTesting.Tests
 {
@@ -14,9 +16,9 @@ namespace RVTR.Lodging.UnitTesting.Tests
     {
       new object[]
       {
-        new LodgingModel { Id = 1, LocationId = 1 },
-        new RentalModel { Id = 1 },
-        new ReviewModel { Id = 1 }
+        new LodgingModel { Id = 1, LocationId = 1, Bathrooms = 1, Name = "Test" },
+        new RentalModel { Id = 1, LotNumber = "1", Price = 1.11, Status = "Available" },
+        new ReviewModel { Id = 1, Comment = "Comment", DateCreated = DateTime.Now, Rating = 1 }
       }
     };
 
@@ -196,7 +198,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
         var lodgings = new Repository<LodgingModel>(ctx);
         var lodgingToUpdate = await ctx.Lodgings.FirstAsync();
 
-        lodgingToUpdate.Name = "name";
+        lodgingToUpdate.Name = "Name";
         lodgings.Update(lodgingToUpdate);
 
         var result = ctx.Lodgings.Find(lodging.Id);
@@ -209,7 +211,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
         var rentals = new Repository<RentalModel>(ctx);
         var rentalToUpdate = await ctx.Rentals.FirstAsync();
 
-        rentalToUpdate.LotNumber = "lot number";
+        rentalToUpdate.LotNumber = "4";
         rentals.Update(rentalToUpdate);
 
         var result = ctx.Rentals.Find(rental.Id);
@@ -222,7 +224,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
         var reviews = new Repository<ReviewModel>(ctx);
         var reviewToUpdate = await ctx.Reviews.FirstAsync();
 
-        reviewToUpdate.Comment = "comment";
+        reviewToUpdate.Comment = "Comment";
         reviews.Update(reviewToUpdate);
 
         var result = ctx.Reviews.Find(review.Id);

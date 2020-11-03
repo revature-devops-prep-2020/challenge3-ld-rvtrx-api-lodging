@@ -17,10 +17,10 @@ namespace RVTR.Lodging.UnitTesting.Tests
         new AddressModel
         {
           Id = 0,
-          City = "city",
-          Country = "country",
-          PostalCode = "postalcode",
-          StateProvince = "stateprovince",
+          City = "City",
+          Country = "USA",
+          PostalCode = "11111",
+          StateProvince = "TX",
           Street = "street",
         }
       }
