@@ -84,5 +84,70 @@ namespace RVTR.Lodging.WebApi.Controllers
       _logger.LogInformation($"Getting all available lodgings matching City: {city}, State: {state}, Country: {country}, Occupancy: {occupancy}...");
       return Ok(await _unitOfWork.Lodging.LodgingByLocationAndOccupancy(occupancy, city, state, country));
     }
+
+    /// <summary>
+    /// Action method for deleting a lodging by lodging id
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+      try
+      {
+        _logger.LogInformation($"Deleting a lodging @ id = {id}...");
+        LodgingModel lodge = await _unitOfWork.Lodging.SelectAsync(id);
+        await _unitOfWork.Lodging.DeleteAsync(lodge.Id);
+        await _unitOfWork.CommitAsync();
+        _logger.LogInformation($"Successfully deleted a lodging @ id = {lodge.Id}.");
+        return Ok();
+      }
+      catch
+      {
+        _logger.LogInformation($"Could not delete lodging @ id = {id}.");
+        return NotFound(id);
+      }
+    }
+
+    /// <summary>
+    /// Action method for creating a new lodging
+    /// </summary>
+    /// <param name="lodging"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<IActionResult> Post(LodgingModel lodging)
+    {
+      _logger.LogInformation($"Creating a new lodging @ {lodging}...");
+      await _unitOfWork.Lodging.InsertAsync(lodging);
+      await _unitOfWork.CommitAsync();
+      _logger.LogInformation($"Successfully created a new lodging @ {lodging}.");
+      return Accepted(lodging);
+    }
+
+    /// <summary>
+    /// Action method for updating a preexisting lodging
+    /// </summary>
+    /// <param name="lodging"></param>
+    /// <returns></returns>
+    [HttpPut]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Put(LodgingModel lodging)
+    {
+      try
+      {
+        _logger.LogInformation($"Updating a lodging @ {lodging}...");
+        var newlodging = await _unitOfWork.Lodging.SelectAsync(lodging.Id);
+        _unitOfWork.Lodging.Update(newlodging);
+        await _unitOfWork.CommitAsync();
+        _logger.LogInformation($"Successfully updated a lodging @ {newlodging}.");
+        return Accepted(lodging);
+      }
+      catch
+      {
+        _logger.LogInformation($"Failed to update a lodging @ {lodging}.");
+        return NotFound(lodging);
+      }
+    }
   }
 }

@@ -47,5 +47,35 @@ namespace RVTR.Lodging.UnitTesting.Tests
       Assert.NotNull(failResult);
       Assert.NotNull(returnOneResult);
     }
+
+    [Fact]
+    public async void Test_Controller_Delete()
+    {
+      var resultPass = await _controller.Delete(0);
+      var resultFail = await _controller.Delete(1);
+
+      Assert.NotNull(resultFail);
+      Assert.NotNull(resultPass);
+    }
+
+    [Fact]
+    public async void Test_Controller_Post()
+    {
+      var resultPass = await _controller.Post(new LodgingModel());
+
+      Assert.NotNull(resultPass);
+    }
+
+    [Fact]
+    public async void Test_Controller_Put()
+    {
+      LodgingModel lodgingmodel = await _unitOfWork.Lodging.SelectAsync(0);
+
+      var resultPass = await _controller.Put(lodgingmodel);
+      var resultFail = await _controller.Put(null);
+
+      Assert.NotNull(resultPass);
+      Assert.NotNull(resultFail);
+    }
   }
 }
