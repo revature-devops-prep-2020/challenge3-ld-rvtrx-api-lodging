@@ -23,6 +23,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
       repositoryMock.Setup(m => m.SelectAsync()).ReturnsAsync((IEnumerable<LodgingModel>)null);
       repositoryMock.Setup(m => m.SelectAsync(0)).ReturnsAsync(new LodgingModel());
       repositoryMock.Setup(m => m.SelectAsync(1)).ReturnsAsync((LodgingModel)null);
+      repositoryMock.Setup(m => m.SelectAsync(2)).ReturnsAsync(new LodgingModel() { Id = 2, LocationId = 2, Name = "name", Bathrooms = 1 });
       unitOfWorkMock.Setup(m => m.Lodging).Returns(repositoryMock.Object);
 
       _logger = loggerMock.Object;
@@ -41,8 +42,8 @@ namespace RVTR.Lodging.UnitTesting.Tests
     [Fact]
     public async void Test_Controller_GetID()
     {
-      var failResult = await _controller.Get(0);
-      var returnOneResult = await _controller.Get(1);
+      var failResult = await _controller.Get(-1);
+      var returnOneResult = await _controller.Get(2);
 
       Assert.NotNull(failResult);
       Assert.NotNull(returnOneResult);
@@ -51,8 +52,8 @@ namespace RVTR.Lodging.UnitTesting.Tests
     [Fact]
     public async void Test_Controller_Delete()
     {
-      var resultPass = await _controller.Delete(0);
-      var resultFail = await _controller.Delete(1);
+      var resultPass = await _controller.Delete(-1);
+      var resultFail = await _controller.Delete(2);
 
       Assert.NotNull(resultFail);
       Assert.NotNull(resultPass);
@@ -69,7 +70,7 @@ namespace RVTR.Lodging.UnitTesting.Tests
     [Fact]
     public async void Test_Controller_Put()
     {
-      LodgingModel lodgingmodel = await _unitOfWork.Lodging.SelectAsync(0);
+      LodgingModel lodgingmodel = await _unitOfWork.Lodging.SelectAsync(2);
 
       var resultPass = await _controller.Put(lodgingmodel);
       var resultFail = await _controller.Put(null);
