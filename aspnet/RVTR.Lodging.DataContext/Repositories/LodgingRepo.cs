@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using RVTR.Lodging.ObjectModel.Interfaces;
@@ -57,21 +58,10 @@ namespace RVTR.Lodging.DataContext.Repositories
           .ThenInclude(la => la.Address)
         // .Include(a => a.Location.Address)
         .Where(matchesAll)
+        .Where(x => x.Rentals.Any(y => y.Status == "Available" && y.Unit.Capacity >= occupancy))
         .ToListAsync();
 
-      var filteredLodgings = new List<LodgingModel>();
-
-      foreach (var item in lodgingsByLocation)
-      {
-        foreach (var rental in item.Rentals)
-        {
-          if (String.Equals(rental.Status, "available", StringComparison.CurrentCultureIgnoreCase) && rental.Unit.Capacity >= occupancy && !filteredLodgings.Contains(item))
-          {
-            filteredLodgings.Add(item);
-          }
-        }
-      }
-      return filteredLodgings;
+      return lodgingsByLocation;
     }
   }
 }
