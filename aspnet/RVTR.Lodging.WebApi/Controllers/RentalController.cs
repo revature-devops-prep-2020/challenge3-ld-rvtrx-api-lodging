@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
@@ -42,14 +44,22 @@ namespace RVTR.Lodging.WebApi.Controllers
       try
       {
         _logger.LogInformation($"Deleting a rental @ id = {id}...");
-        await _unitOfWork.Rental.DeleteAsync(id);
-        await _unitOfWork.CommitAsync();
-        _logger.LogInformation($"Successfully deleted a rental @ id = {id}.");
-        return Ok();
+        var rental = await _unitOfWork.Rental.SelectAsync(id);
+        if (rental == null)
+        {
+          throw new KeyNotFoundException("The given id does not exist.");
+        }
+        else
+        {
+          await _unitOfWork.Rental.DeleteAsync(id);
+          await _unitOfWork.CommitAsync();
+          _logger.LogInformation($"Successfully deleted a rental @ id = {id}.");
+          return Ok();
+        }
       }
-      catch
+      catch (KeyNotFoundException e)
       {
-        _logger.LogInformation($"Could not delete rental @ id = {id}.");
+        _logger.LogInformation($"Could not find rental @ id = {id}. Caught: {e.Message}");
         return NotFound(id);
       }
     }
@@ -76,11 +86,19 @@ namespace RVTR.Lodging.WebApi.Controllers
       try
       {
         _logger.LogInformation($"Getting a rental @ id = {id}...");
-        return Ok(await _unitOfWork.Rental.SelectAsync(id));
+        var rental = await _unitOfWork.Rental.SelectAsync(id);
+        if (rental == null)
+        {
+          throw new KeyNotFoundException("The given id does not exist");
+        }
+        else
+        {
+          return Ok(rental);
+        }
       }
-      catch
+      catch (KeyNotFoundException e)
       {
-        _logger.LogInformation($"Could not find a rental @ id = {id}.");
+        _logger.LogInformation($"Could not find rental @ id = {id}. Caught: {e.Message}");
         return NotFound(id);
       }
     }
@@ -113,16 +131,28 @@ namespace RVTR.Lodging.WebApi.Controllers
       try
       {
         _logger.LogInformation($"Updating a rental @ {rental}...");
-        var x = await _unitOfWork.Rental.SelectAsync(rental.Id);
-        _unitOfWork.Rental.Update(rental);
-        await _unitOfWork.CommitAsync();
-        _logger.LogInformation($"Successfully updated a rental @ {rental}.");
-        return Accepted(rental);
+        var selectedRental = await _unitOfWork.Rental.SelectAsync(rental.Id);
+        if (selectedRental == null)
+        {
+          throw new KeyNotFoundException("The given id was not found.");
+        }
+        else
+        {
+          _unitOfWork.Rental.Update(selectedRental);
+          await _unitOfWork.CommitAsync();
+          _logger.LogInformation($"Successfully updated a rental @ {selectedRental}.");
+          return Accepted(selectedRental);
+        }
       }
-      catch
+      catch (NullReferenceException e)
       {
-        _logger.LogInformation($"Failed to update a rental @ {rental}.");
+        _logger.LogInformation($"Failed to update a rental @ {rental}. Caught: {e}.");
         return NotFound(rental);
+      }
+      catch (KeyNotFoundException e)
+      {
+        _logger.LogInformation($"Could not find rental @ id = {rental.Id}. Caught: {e.Message}");
+        return NotFound(rental.Id);
       }
     }
   }

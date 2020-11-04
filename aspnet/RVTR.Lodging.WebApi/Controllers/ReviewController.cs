@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
@@ -42,14 +44,22 @@ namespace RVTR.Lodging.WebApi.Controllers
       try
       {
         _logger.LogInformation($"Deleting a review @ id = {id}...");
-        await _unitOfWork.Review.DeleteAsync(id);
-        await _unitOfWork.CommitAsync();
-        _logger.LogInformation($"Successfully deleted a review @ id = {id}.");
-        return Ok();
+        var review = await _unitOfWork.Review.SelectAsync(id);
+        if (review == null)
+        {
+          throw new KeyNotFoundException("The given id does not exist.");
+        }
+        else
+        {
+          await _unitOfWork.Review.DeleteAsync(id);
+          await _unitOfWork.CommitAsync();
+          _logger.LogInformation($"Successfully deleted a review @ id = {id}.");
+          return Ok();
+        }
       }
-      catch
+      catch (KeyNotFoundException e)
       {
-        _logger.LogInformation($"Could not delete review @ id = {id}.");
+        _logger.LogInformation($"Could not find review @ id = {id}. Caught: {e.Message}");
         return NotFound(id);
       }
     }
@@ -76,11 +86,18 @@ namespace RVTR.Lodging.WebApi.Controllers
       try
       {
         _logger.LogInformation($"Getting a review @ id = {id}...");
-        return Ok(await _unitOfWork.Review.SelectAsync(id));
+        var review = await _unitOfWork.Review.SelectAsync(id);
+        if (review == null)
+        {
+          throw new KeyNotFoundException("The given id does not exist");
+        }
+        else {
+          return Ok(review);
+        }
       }
-      catch
+      catch (KeyNotFoundException e)
       {
-        _logger.LogInformation($"Could not find review @ id = {id}.");
+        _logger.LogInformation($"Could not find review @ id = {id}. Caught: {e.Message}");
         return NotFound(id);
       }
     }
@@ -113,16 +130,27 @@ namespace RVTR.Lodging.WebApi.Controllers
       try
       {
         _logger.LogInformation($"Updating a review @ {review}...");
-        var x = await _unitOfWork.Review.SelectAsync(review.Id);
-        _unitOfWork.Review.Update(review);
-        await _unitOfWork.CommitAsync();
-        _logger.LogInformation($"Successfully updated a review @ {review}.");
-        return Accepted(review);
+        var selectedReview = await _unitOfWork.Review.SelectAsync(review.Id);
+        if (selectedReview == null)
+        {
+          throw new KeyNotFoundException("The given id was not found.");
+        }
+        else {
+          _unitOfWork.Review.Update(selectedReview);
+          await _unitOfWork.CommitAsync();
+          _logger.LogInformation($"Successfully updated a review @ {selectedReview}.");
+          return Accepted(selectedReview);
+        }
       }
-      catch
+      catch (NullReferenceException e)
       {
-        _logger.LogInformation($"Failed to update a review @ {review}.");
+        _logger.LogInformation($"Failed to update a review @ {review}. Caught: {e}.");
         return NotFound(review);
+      }
+      catch (KeyNotFoundException e)
+      {
+        _logger.LogInformation($"Could not find review @ id = {review.Id}. Caught: {e.Message}");
+        return NotFound(review.Id);
       }
     }
   }
