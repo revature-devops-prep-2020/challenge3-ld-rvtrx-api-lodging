@@ -40,8 +40,8 @@ namespace RVTR.Lodging.UnitTesting.Tests
     [Fact]
     public async void Test_Controller_Delete()
     {
-      var resultFail = await _controller.Delete(0);
-      var resultPass = await _controller.Delete(1);
+      var resultFail = await _controller.Delete(-1);
+      var resultPass = await _controller.Delete(2);
 
       Assert.NotNull(resultFail);
       Assert.NotNull(resultPass);
@@ -51,8 +51,8 @@ namespace RVTR.Lodging.UnitTesting.Tests
     public async void Test_Controller_Get()
     {
       var resultMany = await _controller.Get();
-      var resultFail = await _controller.Get(0);
-      var resultOne = await _controller.Get(1);
+      var resultFail = await _controller.Get(-1);
+      var resultOne = await _controller.Get(2);
 
       Assert.NotNull(resultMany);
       Assert.NotNull(resultFail);

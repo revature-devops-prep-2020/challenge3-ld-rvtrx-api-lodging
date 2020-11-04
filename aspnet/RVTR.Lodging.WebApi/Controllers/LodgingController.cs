@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
@@ -54,16 +55,22 @@ namespace RVTR.Lodging.WebApi.Controllers
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Get(int id)
     {
-      _logger.LogInformation($"Getting a lodging @ id = {id}...");
-      var lodging = await _unitOfWork.Lodging.SelectAsync(id);
-      if (lodging != null)
+      try
       {
-        _logger.LogInformation($"Successfully found a lodging @ id = {id}.");
-        return Ok(lodging);
-      }
-      else
+        _logger.LogInformation($"Getting a lodging @ id = {id}...");
+        var lodging = await _unitOfWork.Lodging.SelectAsync(id);
+        if (lodging == null)
+        {
+          throw new KeyNotFoundException("The given id does not exist");
+        }
+        else
+        {
+          _logger.LogInformation($"Successfully found a lodging @ id = {id}.");
+          return Ok(lodging);
+        }
+      } catch (KeyNotFoundException e)
       {
-        _logger.LogInformation($"Could not find a lodging @ id = {id}.");
+        _logger.LogInformation($"Could not find lodging @ id = {id}. Caught: {e.Message}");
         return NotFound(id);
       }
     }
@@ -97,14 +104,21 @@ namespace RVTR.Lodging.WebApi.Controllers
       {
         _logger.LogInformation($"Deleting a lodging @ id = {id}...");
         LodgingModel lodge = await _unitOfWork.Lodging.SelectAsync(id);
-        await _unitOfWork.Lodging.DeleteAsync(lodge.Id);
-        await _unitOfWork.CommitAsync();
-        _logger.LogInformation($"Successfully deleted a lodging @ id = {lodge.Id}.");
-        return Ok();
+        if (lodge == null)
+        {
+          throw new KeyNotFoundException("The given id was not found.");
+        }
+        else
+        {
+          await _unitOfWork.Lodging.DeleteAsync(lodge.Id);
+          await _unitOfWork.CommitAsync();
+          _logger.LogInformation($"Successfully deleted a lodging @ id = {lodge.Id}.");
+          return Ok();
+        }
       }
-      catch
+      catch (KeyNotFoundException e)
       {
-        _logger.LogInformation($"Could not delete lodging @ id = {id}.");
+        _logger.LogInformation($"Could not find lodging @ id = {id}. Caught: {e.Message}");
         return NotFound(id);
       }
     }
@@ -138,15 +152,27 @@ namespace RVTR.Lodging.WebApi.Controllers
       {
         _logger.LogInformation($"Updating a lodging @ {lodging}...");
         var newlodging = await _unitOfWork.Lodging.SelectAsync(lodging.Id);
-        _unitOfWork.Lodging.Update(newlodging);
-        await _unitOfWork.CommitAsync();
-        _logger.LogInformation($"Successfully updated a lodging @ {newlodging}.");
-        return Accepted(lodging);
+        if (newlodging == null)
+        {
+          throw new KeyNotFoundException("The given id was not found.");
+        }
+        else
+        {
+          _unitOfWork.Lodging.Update(newlodging);
+          await _unitOfWork.CommitAsync();
+          _logger.LogInformation($"Successfully updated a lodging @ {newlodging}.");
+          return Accepted(lodging);
+        }
       }
-      catch
+      catch (NullReferenceException e)
       {
-        _logger.LogInformation($"Failed to update a lodging @ {lodging}.");
+        _logger.LogInformation($"Failed to update a lodging @ {lodging}. Caught: {e}.");
         return NotFound(lodging);
+      }
+      catch (KeyNotFoundException e)
+      {
+        _logger.LogInformation($"Could not find lodging @ id = {lodging.Id}. Caught: {e.Message}");
+        return NotFound(lodging.Id);
       }
     }
   }
