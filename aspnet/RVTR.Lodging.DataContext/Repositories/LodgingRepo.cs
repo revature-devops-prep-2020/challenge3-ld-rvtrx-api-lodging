@@ -57,21 +57,10 @@ namespace RVTR.Lodging.DataContext.Repositories
           .ThenInclude(la => la.Address)
         // .Include(a => a.Location.Address)
         .Where(matchesAll)
+        .Where(x => x.Rentals.Any(y => y.Status == "Available" && y.Unit.Capacity >= occupancy))
         .ToListAsync();
 
-      var filteredLodgings = new List<LodgingModel>();
-
-      foreach (var item in lodgingsByLocation)
-      {
-        foreach (var rental in item.Rentals)
-        {
-          if (String.Equals(rental.Status, "available", StringComparison.CurrentCultureIgnoreCase) && rental.Unit.Capacity >= occupancy && !filteredLodgings.Contains(item))
-          {
-            filteredLodgings.Add(item);
-          }
-        }
-      }
-      return filteredLodgings;
+      return lodgingsByLocation;
     }
   }
 }
