@@ -227,11 +227,16 @@ pipeline {
     }
     post {
         success {
-            setBuildStatus("Build ${env.BUILD_NUMBER} succeeded", "SUCCESS")
-            
+            node('Master')
+            {
+                setBuildStatus("Build ${env.BUILD_NUMBER} succeeded", "SUCCESS")
+            }  
         }
         failure {
-            setBuildStatus("Build ${env.BUILD_NUMBER} failed", "FAILURE")
+            node('Master')
+            {
+                setBuildStatus("Build ${env.BUILD_NUMBER} failed", "FAILURE")
+            }
         }
     }
 }
