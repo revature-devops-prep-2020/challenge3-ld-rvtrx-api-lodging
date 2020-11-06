@@ -1,11 +1,10 @@
 # readme
 
-[![build status](https://github.com/RVTR/rvtr-svc-lodging/workflows/build/badge.svg)](https://github.com/RVTR/rvtr-svc-lodging/actions?query=workflow%3Abuild)
-[![release status](https://github.com/RVTR/rvtr-svc-lodging/workflows/release/badge.svg)](https://github.com/RVTR/rvtr-svc-lodging/actions?query=workflow%3Arelease)
-[![coverage status](https://sonarcloud.io/api/project_badges/measure?project=rvtr_api_lodging&metric=coverage)](https://sonarcloud.io/dashboard?id=rvtr_api_lodging)
-[![maintainability rating](https://sonarcloud.io/api/project_badges/measure?project=rvtr_api_lodging&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=rvtr_api_lodging)
-[![reliability rating](https://sonarcloud.io/api/project_badges/measure?project=rvtr_api_lodging&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=rvtr_api_lodging)
-[![security rating](https://sonarcloud.io/api/project_badges/measure?project=rvtr_api_lodging&metric=security_rating)](https://sonarcloud.io/dashboard?id=rvtr_api_lodging)
+[![quality gate](https://sonarcloud.io/api/project_badges/measure?project=revature-devops-prep-2020_challenge3-ld-rvtrx-api-lodging&metric=alert_status)](https://sonarcloud.io/dashboard?id=revature-devops-prep-2020_challenge3-ld-rvtrx-api-lodging)
+[![coverage status](https://sonarcloud.io/api/project_badges/measure?project=revature-devops-prep-2020_challenge3-ld-rvtrx-api-lodging&metric=coverage)](https://sonarcloud.io/dashboard?id=revature-devops-prep-2020_challenge3-ld-rvtrx-api-lodging)
+[![maintainability rating](https://sonarcloud.io/api/project_badges/measure?project=revature-devops-prep-2020_challenge3-ld-rvtrx-api-lodging&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=revature-devops-prep-2020_challenge3-ld-rvtrx-api-lodging)
+[![reliability rating](https://sonarcloud.io/api/project_badges/measure?project=revature-devops-prep-2020_challenge3-ld-rvtrx-api-lodging&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=revature-devops-prep-2020_challenge3-ld-rvtrx-api-lodging)
+[![security rating](https://sonarcloud.io/api/project_badges/measure?project=revature-devops-prep-2020_challenge3-ld-rvtrx-api-lodging&metric=security_rating)](https://sonarcloud.io/dashboard?id=revature-devops-prep-2020_challenge3-ld-rvtrx-api-lodging)
 
 RVTR Servicehub Lodging API
 
