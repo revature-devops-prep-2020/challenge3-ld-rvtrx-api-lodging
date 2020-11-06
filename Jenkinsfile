@@ -1,6 +1,17 @@
+void setBuildStatus(String message, String state) {
+  step([
+      $class: "GitHubCommitStatusSetter",
+      reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/my-org/my-repo"],
+      contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "ci/jenkins/build-status"],
+      errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
+      statusResultSource: [ $class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
+  ]);
+}
+
 def repoName = "reblank/challenge3_lodging"
 def versionTag = "1.0.0"
 def kubeMaster = "https://my-cluster-challenge3-aks-f6d8e5-79c4b462.hcp.eastus.azmk8s.io"
+
 
 pipeline {
     agent none
@@ -213,5 +224,14 @@ pipeline {
                 }
             }
         }*/
+    }
+    post {
+        success {
+            setBuildStatus("Build ${env.BUILD_NUMBER} succeeded", "SUCCESS")
+            
+        }
+        failure {
+            setBuildStatus("Build ${env.BUILD_NUMBER} failed", "FAILURE")
+        }
     }
 }
