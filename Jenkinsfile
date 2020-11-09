@@ -165,17 +165,8 @@ pipeline {
         }
     }
     post {
-        success {
-            node('Master')
-            {
-                setBuildStatus("Build ${env.BUILD_NUMBER} succeeded", "SUCCESS")
-            }  
-        }
-        failure {
-            node('Master')
-            {
-                setBuildStatus("Build ${env.BUILD_NUMBER} failed", "FAILURE")
-            }
+        always {
+            updateGithubCommitStatus(currentBuild)
         }
     }
 }
