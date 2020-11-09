@@ -166,7 +166,11 @@ pipeline {
     }
     post {
         always {
-            updateGithubCommitStatus(currentBuild)
+            node('Master')
+            {
+                updateGithubCommitStatus(currentBuild)
+            }  
         }
+
     }
 }
