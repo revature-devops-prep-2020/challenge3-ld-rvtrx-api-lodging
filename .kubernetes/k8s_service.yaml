@@ -10,4 +10,4 @@ spec:
       targetPort: lodging-http
   selector:
     app: lodging
-  type: ClusterIP
+  type: LoadBalancer
