@@ -1,7 +1,5 @@
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
 
-WORKDIR /app
+COPY app/ application 
 
-COPY . .
-
-CMD [ "dotnet", "RVTR.Lodging.WebApi.dll" ]
+CMD [ "dotnet", "application/RVTR.Lodging.WebApi.dll" ]

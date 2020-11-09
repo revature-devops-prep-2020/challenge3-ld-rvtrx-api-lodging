@@ -24,7 +24,7 @@ spec:
               value: 'Host=localhost;Database=LodgingData;Username=postgres;Password=LodgingData@2020;'
             - name: ConnectionStrings__zipkin
               value: 'http://zipkin:9411/'
-          image: challenge3_lodging:latest
+          image: reblank/challenge3_lodging:latest
           imagePullPolicy: Always
           name: lodging
           ports:
