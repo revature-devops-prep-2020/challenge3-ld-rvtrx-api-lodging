@@ -10,7 +10,7 @@ void setBuildStatus(String message, String state) {
 
 def repoName = "reblank/challenge3_lodging"
 def versionTag = "1.0.0"
-def kubeMaster = "https://my-cluster-challenge3-aks-f6d8e5-79c4b462.hcp.eastus.azmk8s.io"
+def kubeMaster = "https://my-cluster-aks-group-f6d8e5-0452c04c.hcp.eastus.azmk8s.io:443"
 
 
 pipeline {
@@ -94,7 +94,7 @@ pipeline {
                     steps {
                         dir('aspnet/')
                         {
-                            sh 'dotnet publish -o app --no-restore --no-build'
+                            sh 'dotnet publish -o ../app --no-restore --no-build'
                         }
                     }
                     post
@@ -130,100 +130,18 @@ pipeline {
                 }
             }   
         }
-        /*
-        stage('Docker')
+        stage("Dockerize")
         {
-            stages {
-                stage('docker build') {   
-                    agent {
-                        docker { image 'docker' }
-                    }
-                    steps {
-                        script {
-                            image = docker.build(repoName)
-                        }
-                        sh "docker tag ${repoName} ${repoName}:${versionTag}"
-                    }
-                    post
-                    {
-                        success{
-                            slackSend(color: '#00FF00', message: "${env.JOB_NAME}'s Docker image built successfully")
-                        }
-                        failure{
-                            slackSend(color: '#FF0000', message: "${env.JOB_NAME}'s Docker image failed to build.")
-                        }
-                    }
-                }
-                stage('trivy') {
-                    agent {
-                        docker { 
-                            image 'aquasec/trivy'
-                            args '--net=host -v /var/run/docker.sock --entrypoint=' }
-                    }
-                    steps {
-                        sh 'trivy image ' + "${repoName}:${versionTag}"
-                    }
-                    post
-                    {
-                        success{
-                            slackSend(color: '#00FF00', message: "${env.JOB_NAME}'s trivy scan was successful")
-                        }
-                        failure{
-                            slackSend(color: '#FF0000', message: "${env.JOB_NAME}'s trivy scan was unsuccessful")
-                        }
-                    }
-                }
-                
-                stage('docker push') {
-                    agent {
-                        docker { image 'docker' }
-                    }
-                    steps {
-                        script {
-                            image = docker.image(repoName)
-                            docker.withRegistry("", "docker_hub_credentials") {
-                                image.push(versionTag)
-                                image.push("latest")
-                            }
-                        }
-                    }
-                    post
-                    {
-                        success{
-                            slackSend(color: '#00FF00', message: "${env.JOB_NAME}'s Docker image pushed to Docker Hub")
-                        }
-                        failure{
-                            slackSend(color: '#FF0000', message: "${env.JOB_NAME}'s Docker image failed to push.")
-                        }
-                    }
-                }
+            steps{
+                dockerize(repoName, versionTag, this, false)
             }
-            
         }
-
-        stage('app deploy') {
-            agent {
-                docker { 
-                    image 'reblank/kubectl_agent' 
-                    args '--net=host'}
+        stage("Deployment")
+        {
+            steps{
+                kubeDeploy(kubeMaster, this, 'kube-sa', '.kubernetes/')
             }
-            steps
-            {
-                git url: 'https://github.com/revature-devops-prep-2020/challenge3-ld-rvtrx-api-lodging', branch: "main"
-                withKubeConfig([credentialsId: 'kube-sa', serverUrl: "${kubeMaster}"]) {
-                    sh 'kubectl apply -f kubernetes'
-                }
-            }
-            post
-            {
-                success{
-                    slackSend(color: '#00FF00', message: "${env.JOB_NAME} deployed to cluster.")
-                }
-                failure{
-                    slackSend(color: '#FF0000', message: "${env.JOB_NAME} failed to deploy.")
-                }
-            }
-        }*/
+        }
     }
     post {
         success {
