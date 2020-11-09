@@ -7,7 +7,7 @@
 [![security rating](https://sonarcloud.io/api/project_badges/measure?project=revature-devops-prep-2020_challenge3-ld-rvtrx-api-lodging&metric=security_rating)](https://sonarcloud.io/dashboard?id=revature-devops-prep-2020_challenge3-ld-rvtrx-api-lodging)
 
 RVTR Servicehub Lodging API
-test2
+test3
 ## links
 
 zipkin: https://tracing.rvtr.net:9411/zipkin/
